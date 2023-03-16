@@ -5,7 +5,8 @@ const sequelize = require('sequelize')
 const dotenv = require('dotenv').config()
 const cors = require("cors");
 const cookieParser = require("cookie-parser")
-const userRoutes = require("./app/routes/customers.routes");
+const customerRoutes = require("./app/routes/customers.routes");
+const supplierRoutes = require("./app/routes/suppliers.routes");
 
 
 //setting up your port
@@ -30,7 +31,8 @@ db.sequelize.sync();
 //     console.log("db has been re sync");
 // });
 
-app.use("/api/customers/", userRoutes);
+app.use("/api/customers/", customerRoutes);
+app.use("/api/suppliers/",supplierRoutes)
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))
