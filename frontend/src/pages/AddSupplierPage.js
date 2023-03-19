@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import UserServices from '../services/UserServices';
+
 // import label from 'src/components/label';
 
 const cities = [
@@ -33,9 +34,9 @@ const cities = [
   },
 ];
 
-export default function AddCustomerPage() {
+export default function AddSupplierPage() {
   const [values, setValues] = useState({
-    custname: '',
+    suppliername: '',
     email: '',
     address: '',
     city: 'Rajkot',
@@ -52,21 +53,23 @@ export default function AddCustomerPage() {
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
   }, []);
+
   const navigate = useNavigate();
 
   const SendDataToBackEnd = async () => {
     try {
-      UserServices.Add_Customer(custname, email, address, city, phone).then((res) => {
+      UserServices.Add_Supplier(suppliername, email, address, city, phone).then((res) => {
         console.log('success');
+        
         console.log(res);
-        navigate('/dashboard/user');
+        // navigate('/dashboard/supplier');
       });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const { custname, email, address, city, phone } = values;
+  const { suppliername, email, address, city, phone } = values;
   
 
   return (
@@ -80,9 +83,9 @@ export default function AddCustomerPage() {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  helperText="Specify your company or customer name"
-                  label="Customer name"
-                  name="custname"
+                  helperText="Specify  company or Supplier name"
+                  label="Supplier name"
+                  name="suppliername"
                   onChange={handleChange}
                   required
                 />
@@ -106,10 +109,10 @@ export default function AddCustomerPage() {
                 </TextField>
               </Grid>
               <Grid xs={12} md={6}>
-                <TextField fullWidth label="Email Address" name="email" onChange={handleChange} required />
+                <TextField fullWidth label="Email Address" name="email" onChange={handleChange}  />
               </Grid>
               <Grid xs={12} md={6}>
-                <TextField fullWidth label="Phone Number" name="phone" onChange={handleChange} type="number" />
+                <TextField fullWidth label="Phone Number" name="phone" onChange={handleChange} type="number" required/>
               </Grid>
               <Grid xs={12} md={12}>
                 <TextField fullWidth label="Address" name="address" onChange={handleChange} required />
@@ -119,7 +122,7 @@ export default function AddCustomerPage() {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained" disabled={!custname || !phone || !city || !address} onClick={() => SendDataToBackEnd()}>
+          <Button variant="contained" disabled={!suppliername || !phone || !city || !address} onClick={() => SendDataToBackEnd()}>
             Save details
           </Button>
         </CardActions>

@@ -5,11 +5,13 @@ import SimpleLayout from './layouts/simple';
 //
 import BlogPage from './pages/BlogPage';
 import UserPage from './pages/UserPage';
+import SupplierPage from './pages/SupplierPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import AddCustomerPage from './pages/AddCustomerPage';
+import AddSupplierPage from './pages/AddSupplierPage';
 
 // ----------------------------------------------------------------------
 
@@ -22,9 +24,11 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
+        { path: 'supplier', element: <SupplierPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
-        { path: 'AddCustomer', element: <AddCustomerPage/>}
+        { path: 'AddCustomer', element: <AddCustomerPage /> },
+        { path: 'AddSupplier', element: <AddSupplierPage /> },
       ],
     },
     {

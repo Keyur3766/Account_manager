@@ -102,7 +102,7 @@ export default function UserPage() {
 const CUSTOMERDATA = Array.from(data);
   
   
-  console.log(CUSTOMERDATA);
+  
   
   useEffect(()=>{
     getCustomerData();
@@ -165,6 +165,8 @@ const CUSTOMERDATA = Array.from(data);
 
   const filteredUsers = applySortFilter(CUSTOMERDATA, getComparator(order, orderBy), filterName);
 
+
+  
   const isNotFound = !filteredUsers.length && !!filterName;
 
   return (
@@ -176,10 +178,10 @@ const CUSTOMERDATA = Array.from(data);
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            Customer
           </Typography>
           <Button component={RouterLink} to="/dashboard/AddCustomer" variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
+            New Customer
           </Button>
         </Stack>
 
