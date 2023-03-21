@@ -14,33 +14,18 @@ import {
   TextField,
   OutlinedInput,
   Unstable_Grid2 as Grid,
+  Stack,
+  Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import UserServices from '../services/UserServices';
 // import label from 'src/components/label';
 
-const cities = [
-  {
-    value: 'rajkot',
-    label: 'Rajkot',
-  },
-  {
-    value: 'ahmedabad',
-    label: 'Ahmedabad',
-  },
-  {
-    value: 'delhi',
-    label: 'Delhi',
-  },
-  {
-    value: 'kolkata',
-    label: 'Kolkata',
-  },
-];
 
-export default function AddCustomerPage() {
+export default function AddProductPage() {
   const [values, setValues] = useState("");
   const [fileState,setFiles] = useState("");
+  const [ErrorMessage,setErrorMessage] = useState("");
   const handleChange = useCallback((event) => {
     setValues((prevState) => ({
       ...prevState,
@@ -59,19 +44,24 @@ export default function AddCustomerPage() {
 
 
   const SendDataToBackEnd = async () => {
-    // const formData = new FormData();
-    // formData.append('file', fileState.itemImage)
+    
     try {
       UserServices.Add_Item(product_name,purchase_price,selling_price,item_color,stock_available,fileState.itemImage).then((res) => {
         console.log('success');
-        console.log(res);
-        // navigate('/dashboard/user');
+        
+        // console.warn(res.response.data.message);
+        if(res.status === 200){
+          navigate('/dashboard/products');
+        }
+        else{
+          alert(res.response.data.message);
+        }
       });
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(fileState.itemImage);
+  // console.log(fileState.itemImage);
   const { product_name, purchase_price, selling_price, item_color, stock_available } = values;
 
   return (
@@ -79,11 +69,18 @@ export default function AddCustomerPage() {
       <Card>
         <CardHeader subheader="The information can be edited" title="Add Item" />
         <br />
-
-        <Button sx={{ m: 2 }} onChange={handleFileChange} variant="contained" component="label">
+        
+        <Button sx={{ mx: 2 }} onChange={handleFileChange} variant="contained" component="label">
           Upload
           <input hidden accept="image/*" multiple type="file" name="file" required />
         </Button>
+        {
+          fileState.itemImage ? (<Typography sx={{ mx: 2 ,mt: 0.5, color: 'text.disabled'}} variant="subtitle2">
+          {fileState.itemImage.name}
+        </Typography> ): ""
+        }
+
+        
 
         <CardContent sx={{ m: 0 }}>
           <Box sx={{ m: -1.5 }}>

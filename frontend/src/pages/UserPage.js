@@ -101,7 +101,7 @@ export default function UserPage() {
 
 const CUSTOMERDATA = Array.from(data);
   
-  
+
   
   
   useEffect(()=>{

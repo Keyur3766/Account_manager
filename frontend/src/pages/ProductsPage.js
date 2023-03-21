@@ -1,13 +1,14 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { useState, useEffect   } from 'react';
 // @mui
 import { NavLink as RouterLink } from 'react-router-dom';
 import { Container, Stack, Typography, Button} from '@mui/material';
 // components
 import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } from '../sections/@dashboard/products';
 // mock
-import PRODUCTS from '../_mock/products';
+// import PRODUCTS from '../_mock/products';
 import Iconify from '../components/iconify';
+import UserServices from '../services/UserServices';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +23,22 @@ export default function ProductsPage() {
     setOpenFilter(false);
   };
 
+  // Getting items from Backend
+  const [data, setData] = useState("");
+  const getItemsData = async() => {
+    UserServices.FetchItems().then((res)=>{
+      setData(res.data);
+    });
+  };
+  
+  const PRODUCTDATA = Array.from(data);
+  console.log(typeof(PRODUCTDATA));
+  // console.log(PRODUCTDATA);
+
+
+  useEffect(()=>{
+    getItemsData();
+  },[]);
   return (
     <>
       <Helmet>
@@ -49,7 +66,7 @@ export default function ProductsPage() {
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTS} />
+        <ProductList products={PRODUCTDATA} />
         {/* <ProductCartWidget /> */}
       </Container>
     </>

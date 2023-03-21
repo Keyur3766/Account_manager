@@ -64,6 +64,17 @@ export default {
       return error;
     }
   },
+  FetchItems: async function(){
+    
+    try{
+      const response = await axios.get("http://127.0.0.1:8081/api/items/getItems");
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
 
   FetchSupplier: async function () {
     try {
