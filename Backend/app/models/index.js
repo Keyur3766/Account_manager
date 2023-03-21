@@ -21,6 +21,7 @@ db.sequelize = sequelize;
 
 db.customer = require("./customer.modal")(sequelize,Sequelize);
 db.supplier = require("./supplier.modal")(sequelize,Sequelize);
+db.items = require("./items.modal")(sequelize,Sequelize);
 
 
 module.exports = db;

@@ -7,6 +7,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser")
 const customerRoutes = require("./app/routes/customers.routes");
 const supplierRoutes = require("./app/routes/suppliers.routes");
+const itemRoutes = require("./app/routes/items.routes");
+global.__basedir = __dirname;
 
 
 //setting up your port
@@ -32,7 +34,9 @@ db.sequelize.sync();
 // });
 
 app.use("/api/customers/", customerRoutes);
-app.use("/api/suppliers/",supplierRoutes)
+app.use("/api/suppliers/",supplierRoutes);
+app.use("/api/items/",itemRoutes);
+
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))

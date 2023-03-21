@@ -12,6 +12,7 @@ import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import AddCustomerPage from './pages/AddCustomerPage';
 import AddSupplierPage from './pages/AddSupplierPage';
+import AddProductPage from './pages/AddProductPage';
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +30,7 @@ export default function Router() {
         { path: 'blog', element: <BlogPage /> },
         { path: 'AddCustomer', element: <AddCustomerPage /> },
         { path: 'AddSupplier', element: <AddSupplierPage /> },
+        { path: 'AddProduct', element: <AddProductPage /> }
       ],
     },
     {

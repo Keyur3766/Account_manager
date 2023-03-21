@@ -37,7 +37,7 @@ exports.addCustomer = async(req,res) => {
         City,
         Mobile
     } = req.body;
-
+    console.log(Name);
     Customer.findOne({where: {Email: Email}})
     .then((data)=>{
         if(data){
