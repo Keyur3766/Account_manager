@@ -62,7 +62,7 @@ export default function AddSupplierPage() {
         console.log('success');
         
         console.log(res);
-        // navigate('/dashboard/supplier');
+        navigate('/dashboard/supplier');
       });
     } catch (error) {
       console.log(error);

@@ -72,3 +72,26 @@ exports.addCustomer = async(req,res) => {
         });
     });
 }
+
+exports.Delete_Customer = (req, res) => {
+const id = req.params.id;
+
+    Customer.destroy({
+    where: { id: id },
+    })
+    .then((num) => {
+    if (num == 1) {
+        res.send({
+        message: "Customer was deleted successfully!",
+        });
+    } else {
+        res.send({
+        message: `Cannot delete Customer with id=${id}. Maybe Customer was not found!`,
+        });
+    }
+    })
+    .catch((err) => {
+    res.status(500).send({
+        message: "Could not delete Customer with id=" + id,
+    });
+})};

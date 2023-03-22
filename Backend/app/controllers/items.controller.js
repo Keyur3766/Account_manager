@@ -7,6 +7,7 @@ const fs = require("fs");
 
 const Item = db.items;
 
+//Get all the Items from DB
 exports.getItems = async (req, res) => {
   try {
     console.log("From API:");
@@ -26,6 +27,7 @@ exports.getItems = async (req, res) => {
   }
 };
 
+//Get Item Image
 exports.getItemImage = async (req, res) => {
   const { filename } = req.params;
 
@@ -92,3 +94,26 @@ exports.addItems = async (req, res) => {
     return res.send(`Error when trying upload images: ${error}`);
   }
 };
+
+exports.Delete_Item = (req, res) => {
+const id = req.params.id;
+
+  Item.destroy({
+    where: { id: id },
+  })
+  .then((num) => {
+    if (num == 1) {
+      res.send({
+        message: "Item was deleted successfully!",
+      });
+    } else {
+      res.send({
+        message: `Cannot delete Item with id=${id}. Maybe Item was not found!`,
+      });
+    }
+  })
+  .catch((err) => {
+    res.status(500).send({
+      message: "Could not delete Item with id=" + id,
+    });
+})};

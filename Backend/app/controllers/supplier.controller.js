@@ -72,3 +72,28 @@ exports.addSupplier = async(req,res) => {
         });
     });
 }
+
+
+//Delete Supplier
+exports.Delete_Supplier = (req, res) => {
+const id = req.params.id;
+
+    Supplier.destroy({
+    where: { id: id },
+    })
+    .then((num) => {
+    if (num == 1) {
+        res.send({
+        message: "Supplier was deleted successfully!",
+        });
+    } else {
+        res.send({
+        message: `Cannot delete Supplier with id=${id}. Maybe Item was not found!`,
+        });
+    }
+    })
+    .catch((err) => {
+    res.status(500).send({
+        message: "Could not delete Item with id=" + id,
+    });
+})};

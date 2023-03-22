@@ -1,5 +1,5 @@
 const customerController = require("../controllers/customer.controller");
-const {addCustomer,GetCustomers} = customerController;
+const {addCustomer,GetCustomers, Delete_Customer} = customerController;
 
 
 
@@ -12,5 +12,8 @@ router.get("/getCustomers",GetCustomers);
 
 //Post (Create new customer)
 router.post("/addCustomer",addCustomer);
+
+//Delete Customer
+router.delete("/deleteCustomers/:id",Delete_Customer);
 
 module.exports = router;

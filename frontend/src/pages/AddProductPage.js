@@ -80,8 +80,6 @@ export default function AddProductPage() {
         </Typography> ): ""
         }
 
-        
-
         <CardContent sx={{ m: 0 }}>
           <Box sx={{ m: -1.5 }}>
             <Grid container spacing={3}>

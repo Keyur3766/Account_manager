@@ -93,6 +93,7 @@ export default function UserPage() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [data, setData] = useState("");
+  const [currId, setcurId] = useState("");
   const getCustomerData = async() => {
     UserServices.FetchCustomer().then((res)=>{
       setData(res.data);
@@ -159,6 +160,18 @@ const CUSTOMERDATA = Array.from(data);
   const handleFilterByName = (event) => {
     setPage(0);
     setFilterName(event.target.value);
+  };
+
+  const handleDelete = () => {
+    try {
+      UserServices.Customer_Delete(currId).then((res) => {
+        console.log("Customer Deleted successfully");
+        getCustomerData();
+        handleCloseMenu();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - CUSTOMERDATA.length) : 0;
@@ -231,7 +244,7 @@ const CUSTOMERDATA = Array.from(data);
                         </TableCell> */}
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
+                          <IconButton size="large" color="inherit" onClick={(event) => {setOpen(event.currentTarget);setcurId(id)}}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
                         </TableCell>
@@ -307,7 +320,7 @@ const CUSTOMERDATA = Array.from(data);
           Edit
         </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={()=>handleDelete()}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>

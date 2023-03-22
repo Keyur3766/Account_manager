@@ -66,7 +66,7 @@ export default function ProductsPage() {
           </Stack>
         </Stack>
 
-        <ProductList products={PRODUCTDATA} />
+        <ProductList products={PRODUCTDATA} callback={()=>getItemsData()} />
         {/* <ProductCartWidget /> */}
       </Container>
     </>

@@ -85,4 +85,40 @@ export default {
       return error;
     }
   },
+
+  Customer_Delete: async function (id) {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8081/api/customers/deleteCustomers/${id}`
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  Supplier_Delete: async function (id) {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8081/api/suppliers/deleteSuppliers/${id}`
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  Item_Delete: async function (id) {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8081/api/items/getItems/${id}`
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+
 };

@@ -35,6 +35,7 @@ import USERLIST from '../_mock/user';
 import UserServices from '../services/UserServices';
 
 
+
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -93,9 +94,13 @@ export default function UserPage() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [data, setData] = useState("");
+
+  const [currId, setcurId] = useState("");
+
+  
   const getCustomData = async() => {
     UserServices.FetchSupplier().then((res)=>{
-      setData(res.data);
+      setData(res.data);      
     });
   };
 
@@ -108,10 +113,12 @@ export default function UserPage() {
     getCustomData();
   },[]);
 
-
+  
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
+
+  
 
   const handleCloseMenu = () => {
     setOpen(null);
@@ -159,6 +166,19 @@ export default function UserPage() {
   const handleFilterByName = (event) => {
     setPage(0);
     setFilterName(event.target.value);
+  };
+
+
+  const handleDelete = () => {
+    try {
+      UserServices.Supplier_Delete(currId).then((res) => {
+        console.log("Supplier Deleted successfully");
+        getCustomData();
+        handleCloseMenu();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - SUPPLIERDATA.length) : 0;
@@ -229,7 +249,7 @@ export default function UserPage() {
                         </TableCell> */}
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
+                          <IconButton size="large" color="inherit" onClick={(event) => {setOpen(event.currentTarget);setcurId(id)}} >
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
                         </TableCell>
@@ -305,7 +325,7 @@ export default function UserPage() {
           Edit
         </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={()=>handleDelete()}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>

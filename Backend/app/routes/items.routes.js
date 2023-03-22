@@ -1,5 +1,5 @@
 const itemsController = require("../controllers/items.controller");
-const {addItems, getItemImage, getItems} = itemsController;
+const {addItems, getItemImage, getItems, Delete_Item} = itemsController;
 const upload = require("../middleware/upload");
 const express = require("express")
 var router = express.Router();
@@ -15,5 +15,8 @@ router.post("/addItems",upload.single("file"),addItems);
 router.get("/image/:filename", getItemImage);
 
 router.get("/getItems",getItems);
+
+//Delete Item
+router.delete("/getItems/:id",Delete_Item);
 
 module.exports = router;

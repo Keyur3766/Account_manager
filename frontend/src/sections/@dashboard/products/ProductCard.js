@@ -9,6 +9,7 @@ import { fCurrency } from '../../../utils/formatNumber';
 import Label from '../../../components/label';
 import { ColorPreview } from '../../../components/color-utils';
 import Iconify from '../../../components/iconify';
+import UserServices from '../../../services/UserServices';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ ShopProductCard.propTypes = {
   product: PropTypes.object,
 };
 
-export default function ShopProductCard({ product }) {
+export default function ShopProductCard({ product, callback }) {
   const [open, setOpen] = useState(null);
 
   const { Name, selling_price, purchase_price, item_color, total_stocks, imageType, imageData, imageName } = product;
@@ -35,6 +36,17 @@ export default function ShopProductCard({ product }) {
   };
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
+  };
+
+  const handleDelete = () => {
+    try {
+      UserServices.Item_Delete(product.id).then((res) => {
+        console.log("Item Deleted successfully");
+        callback();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -112,7 +124,7 @@ export default function ShopProductCard({ product }) {
           Edit
         </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={()=> handleDelete()}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
