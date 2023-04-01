@@ -45,6 +45,20 @@ export default {
       return error;
     }
   },
+  Add_Challan: async function (customer_id, item_id, quantity) {
+    try {
+      const response = await axios.post('http://127.0.0.1:8081/api/challans/addChallans', {
+        customer_id: customer_id,
+        item_id: item_id,
+        quantity: quantity,
+      });
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
 
   Add_Item: async function (Name, Purchase_price, Selling_price,Item_color,Total_stocks, file){
     try{

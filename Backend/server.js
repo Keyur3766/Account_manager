@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser")
 const customerRoutes = require("./app/routes/customers.routes");
 const supplierRoutes = require("./app/routes/suppliers.routes");
 const itemRoutes = require("./app/routes/items.routes");
+const challanRoutes = require("./app/routes/challans.routes");
 global.__basedir = __dirname;
 
 
@@ -36,6 +37,7 @@ db.sequelize.sync();
 app.use("/api/customers/", customerRoutes);
 app.use("/api/suppliers/",supplierRoutes);
 app.use("/api/items/",itemRoutes);
+app.use("/api/challans/",challanRoutes);
 
 
 //listening to server connection
