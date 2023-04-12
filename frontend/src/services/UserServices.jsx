@@ -134,5 +134,29 @@ export default {
     }
   },
 
+  Get_ChallanCountById: async function(id){
+    try{
+      const response = await axios.get(
+        `http://127.0.0.1:8081/api/challans/getChallanCount/${id}`
+      );
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
 
+  Get_ChallanDetailsById: async function(id){
+    try{
+      const response = await axios.get(
+        `http://127.0.0.1:8081/api/challans/getChallanDetails/${id}`
+      );
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  }
 };

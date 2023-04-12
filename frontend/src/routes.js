@@ -14,6 +14,7 @@ import AddCustomerPage from './pages/AddCustomerPage';
 import AddSupplierPage from './pages/AddSupplierPage';
 import AddProductPage from './pages/AddProductPage';
 import SalesPage from './pages/salesPage';
+import GetChallans from './pages/GetChallans';
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +33,8 @@ export default function Router() {
         // { path: 'blog', element: <BlogPage /> },
         { path: 'AddCustomer', element: <AddCustomerPage /> },
         { path: 'AddSupplier', element: <AddSupplierPage /> },
-        { path: 'AddProduct', element: <AddProductPage /> }
+        { path: 'AddProduct', element: <AddProductPage /> },
+        { path: 'GetChallan', element: <GetChallans />}
       ],
     },
     {
@@ -43,14 +45,14 @@ export default function Router() {
       element: <SimpleLayout />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
-        { path: '404', element: <Page404 /> },
-        { path: '*', element: <Navigate to="/404" /> },
+        // { path: '404', element: <Page404 /> },
+        // { path: '*', element: <Navigate to="/404" /> },
       ],
     },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
+    // {
+    //   path: '*',
+    //   element: <Navigate to="/404" replace />,
+    // },
   ]);
 
   return routes;

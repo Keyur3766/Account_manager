@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, json,Link, Route,Routes, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
 import {
@@ -31,10 +31,10 @@ import Scrollbar from '../components/scrollbar';
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 import USERLIST from '../_mock/user';
-
+import GetChallan from './GetChallans'
 import UserServices from '../services/UserServices';
 
-
+// SELECT customer_id,issue_date,COUNT(*) FROM challans WHERE payment_status='false' and customer_id=4 GROUP BY customer_id,issue_date;
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -42,7 +42,7 @@ const TABLE_HEAD = [
   { id: 'company', label: 'Mobile Number', alignRight: false },
   { id: 'role', label: 'Email Address', alignRight: false },
   { id: 'isVerified', label: 'City', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  { id: 'status', label: 'Pending Challans', alignRight: false },
   { id: '' },
 ];
 
@@ -94,18 +94,56 @@ export default function UserPage() {
 
   const [data, setData] = useState("");
   const [currId, setcurId] = useState("");
+
+  const [selectedCustomer, setSelectedCustomer] =  useState('');
+
   const getCustomerData = async() => {
     UserServices.FetchCustomer().then((res)=>{
       setData(res.data);
+      
+      res.data.map(d => {
+        return (
+          
+          UserServices.Get_ChallanCountById(d.id).then((res) => {
+
+            const resdata = res.data;
+            setPendingChallans([
+              ...pendingchallans,
+              {id: d.id, pending: resdata}
+            ])
+    
+            console.log(resdata); 
+          
+          })
+        );
+      });
     });
   };
 
 const CUSTOMERDATA = Array.from(data);
-    
-  useEffect(()=>{
-    getCustomerData();
-  },[]);
 
+
+
+useEffect(() => {
+  const fetchData = async () => {
+    const res = await UserServices.FetchCustomer();
+
+    setData(res.data);
+    
+    const promises = res.data.map((entry) => UserServices.Get_ChallanCountById(entry.id).then((res)=>{
+      const newPendingChallan = { id: entry.id, pending: res.data };
+      setPendingChallans((prevPendingChallans) => [...prevPendingChallans, newPendingChallan]);
+    }));
+    await Promise.all(promises); // wait for all promises to resolve
+  };
+
+  fetchData();
+}, []);
+
+
+
+
+  
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -171,16 +209,51 @@ const CUSTOMERDATA = Array.from(data);
     }
   };
 
+  const handlePendingChallanCount = (my_id) => {  
+    try{
+      UserServices.Get_ChallanCountById(my_id).then((res) => {
+
+        const resdata = res.data;
+        setPendingChallans([
+          ...pendingchallans,
+          {id: my_id, pending: resdata}
+        ])
+
+        // console.log(resdata); 
+      
+      });
+    }
+    catch(error){
+      console.log(error);
+      // return null;
+    }
+  };
+  const navigate = useNavigate();
+  const handleclickChallanPage = (id) => {
+    console.log(id);
+    // setSelectedCustomer(id);
+
+   
+    navigate('/dashboard/GetChallan', { state: { id } });
+  }
+
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - CUSTOMERDATA.length) : 0;
 
   const filteredUsers = applySortFilter(CUSTOMERDATA, getComparator(order, orderBy), filterName);
 
+  const [pendingchallans, setPendingChallans] = useState([]);
 
+  
   
   const isNotFound = !filteredUsers.length && !!filterName;
 
   return (
     <>
+      {/* <Routes>
+        <Route exact path={`${path}/GetChallan`} element={<GetChallan/>} />
+     </Routes> */}
+
+
       <Helmet>
         <title> Account Manager </title>
       </Helmet>
@@ -190,7 +263,12 @@ const CUSTOMERDATA = Array.from(data);
           <Typography variant="h4" gutterBottom>
             Customer
           </Typography>
-          <Button component={RouterLink} to="/dashboard/AddCustomer" variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+          <Button
+            component={RouterLink}
+            to="/dashboard/AddCustomer"
+            variant="contained"
+            startIcon={<Iconify icon="eva:plus-fill" />}
+          >
             New Customer
           </Button>
         </Stack>
@@ -210,7 +288,7 @@ const CUSTOMERDATA = Array.from(data);
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
-                <TableBody  >
+                <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     const { id, Name, Email, Address, City, Mobile } = row;
                     const selectedUser = selected.indexOf(Name) !== -1;
@@ -236,12 +314,33 @@ const CUSTOMERDATA = Array.from(data);
 
                         <TableCell align="left">{City}</TableCell>
 
-                        {/* <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
-                        </TableCell> */}
+                        <TableCell align="left">
+                          {/* <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label> */}
+
+                          {pendingchallans.map((d, index) =>
+                            d.id === id ? (
+                              <button key={index} onClick={() => handleclickChallanPage(id)}>
+                                   <Label color={'error'}>{d.pending}</Label>
+                              </button>
+
+                              // <Link key={index} to={{ pathname: '/dashboard/user/GetChallan', state: { id } }}>
+                                // <Label color={'error'}>{d.pending}</Label>
+                              //  </Link>
+                            ) : (
+                              ''
+                            )
+                          )}
+                        </TableCell>
 
                         <TableCell align="right">
-                          <IconButton size="large" color="inherit" onClick={(event) => {setOpen(event.currentTarget);setcurId(id)}}>
+                          <IconButton
+                            size="large"
+                            color="inherit"
+                            onClick={(event) => {
+                              setOpen(event.currentTarget);
+                              setcurId(id);
+                            }}
+                          >
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
                         </TableCell>
@@ -317,11 +416,14 @@ const CUSTOMERDATA = Array.from(data);
           Edit
         </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }} onClick={()=>handleDelete()}>
+        <MenuItem sx={{ color: 'error.main' }} onClick={() => handleDelete()}>
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
       </Popover>
+       
     </>
+
+    
   );
 }

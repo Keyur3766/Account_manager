@@ -9,6 +9,8 @@ const Customer = db.customer;
 exports.GetCustomers = async(req,res) => {
     const data = await Customer.findAll();
     
+    
+    // console.log(Object.keys(data).length);
     res.status(200).send(data);
 }
 
