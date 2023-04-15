@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useLocation } from 'react-router-dom';
 import UserServices from '../services/UserServices';
-// import { OverviewBudget } from 'src/sections/@dashboard/user/overview-budget';
+import { OverviewBudget } from '../sections/@dashboard/user/overview-budget';
 
 const TAX_RATE = 0.18;
 
@@ -52,6 +52,7 @@ export default function GetChallans(props) {
   const subtotalData = {};
   const [filteredData, setfilteredData] = useState(null);
   const [filteredsubtotal, setfilteredsubtotal] = useState(null);
+  const [filteredmasterSubtotal, setfilteredmastersubtotal] = useState(null);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -80,7 +81,7 @@ export default function GetChallans(props) {
     return formattedDateWithDay;
   };
   
-
+  let masterTotal = 0;
   const GetChallanData = (my_id) => {
     try {
       UserServices.Get_ChallanDetailsById(my_id).then((res) => {
@@ -94,10 +95,12 @@ export default function GetChallans(props) {
           }
           groupedData[item.issue_date].push(item);
           subtotalData[item.issue_date] += (item.totalQuantity * item.item.selling_price);
+          masterTotal+=item.totalQuantity * item.item.selling_price;
         });
         console.warn(subtotalData);
         setfilteredData(groupedData);
         setfilteredsubtotal(subtotalData);
+        setfilteredmastersubtotal(masterTotal);
       });
     } catch (error) {
       console.log(error);
@@ -123,12 +126,15 @@ export default function GetChallans(props) {
   const subtotal = 0;
   return (
     <>
-      {/* <OverviewBudget
-              difference={12}
-              positive
-              sx={{ height: '100%' }}
-              value="$24k"
-            /> */}
+    <div>
+    <OverviewBudget
+          difference={Object.keys(filteredData).length}
+          negative
+          sx={{ height: '6.5%', mb: 3, width:'40%' }}
+          value={1.18 * filteredmasterSubtotal}
+        />
+    </div>
+      
       {Object.entries(filteredData).map(([key, value]) => (
         <>
           <Typography key={key} variant="h4" component="h2" sx={{ ml: 6 }}>

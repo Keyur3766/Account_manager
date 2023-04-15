@@ -1319,6 +1319,11 @@
   "resolved" "https://registry.npmjs.org/@fontsource/public-sans/-/public-sans-4.5.12.tgz"
   "version" "4.5.12"
 
+"@heroicons/react@^2.0.17":
+  "integrity" "sha512-90GMZktkA53YbNzHp6asVEDevUQCMtxWH+2UK2S8OpnLEu7qckTJPhNxNQG52xIR1WFTwFqtH6bt7a60ZNcLLA=="
+  "resolved" "https://registry.npmjs.org/@heroicons/react/-/react-2.0.17.tgz"
+  "version" "2.0.17"
+
 "@humanwhocodes/config-array@^0.11.8":
   "integrity" "sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g=="
   "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.8.tgz"
