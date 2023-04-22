@@ -38,10 +38,10 @@ import UserServices from '../services/UserServices';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
+  { id: 'Name', label: 'Name', alignRight: false },
   { id: 'company', label: 'Mobile Number', alignRight: false },
-  { id: 'role', label: 'Email Address', alignRight: false },
-  { id: 'isVerified', label: 'City', alignRight: false },
+  { id: 'Email', label: 'Email Address', alignRight: false },
+  { id: 'City', label: 'City', alignRight: false },
   { id: 'status', label: 'Pending Challans', alignRight: false },
   { id: '' },
 ];
@@ -49,6 +49,7 @@ const TABLE_HEAD = [
 // ----------------------------------------------------------------------
 
 function descendingComparator(a, b, orderBy) {
+
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -86,7 +87,7 @@ export default function UserPage() {
 
   const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('Name');
 
   const [filterName, setFilterName] = useState('');
 
@@ -120,9 +121,9 @@ export default function UserPage() {
     });
   };
 
-const CUSTOMERDATA = Array.from(data);
+  const CUSTOMERDATA = Array.from(data);
 
-
+  console.warn(CUSTOMERDATA);
 
 useEffect(() => {
   const fetchData = async () => {

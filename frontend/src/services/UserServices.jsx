@@ -1,5 +1,6 @@
 import { ErrorResponse } from '@remix-run/router';
 import axios from 'axios';
+import { saveAs } from 'file-saver';
 import { func } from 'prop-types';
 
 export default {
@@ -158,5 +159,28 @@ export default {
       console.log(error);
       return error;
     }
-  }
+  },
+
+  DownloadChallan: async function(inputFields, customerName){
+      console.warn(inputFields);
+      await axios.post(
+        `http://127.0.0.1:8081/api/challans/createChallanPDF`,{
+          inputFields : inputFields,
+          customerName: customerName
+        }
+      )
+      .then(() =>  axios.get("http://127.0.0.1:8081/api/challans/fetchPDF", {responseType: 'blob'}))
+      .then((res)=>{
+        const pdfBlob = new Blob([res.data], {type: 'application/pdf'});
+        saveAs(pdfBlob,'challans.pdf');
+      });
+
+    
+    // catch(error){
+    //   console.log(error);
+    //   return error;
+    // }
+    
+    
+  },
 };

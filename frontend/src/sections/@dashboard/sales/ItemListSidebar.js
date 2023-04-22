@@ -64,10 +64,12 @@ ItemList.propTypes = {
 
 
 
-export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, productData, setItemId}) {
+export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, productData, setItemId, setItemPriceParent, setItemNameParent}) {
   
-  const handleButtonClick = (itemname,id) => {
+  const handleButtonClick = (itemname,id,selling_price) => {
     setItemId(id);
+    setItemNameParent(itemname);
+    setItemPriceParent(selling_price);
     setItemName(itemname);
     onCloseFilter();
   }
@@ -127,7 +129,7 @@ export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, prod
 
                 </Box>
                 <Box>
-                <Button variant="outlined" name="item_id" onClick={()=>{handleButtonClick(row.Name,row.id);}}>
+                <Button variant="outlined" name="item_id" onClick={()=>{handleButtonClick(row.Name,row.id,row.selling_price);}}>
                     Add Item
                 </Button>
                 </Box>

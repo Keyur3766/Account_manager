@@ -98,6 +98,7 @@ export default function GetChallans(props) {
           masterTotal+=item.totalQuantity * item.item.selling_price;
         });
         console.warn(subtotalData);
+        
         setfilteredData(groupedData);
         setfilteredsubtotal(subtotalData);
         setfilteredmastersubtotal(masterTotal);

@@ -10,7 +10,7 @@ const Item = db.items;
 //Get all the Items from DB
 exports.getItems = async (req, res) => {
   try {
-    console.log("From API:");
+    // console.log("From API:");
     const items = await Item.findAll()
       .then((items) => {
         items.map((i) => {
@@ -26,6 +26,31 @@ exports.getItems = async (req, res) => {
     return res.status(500).send(error.mesage);
   }
 };
+
+// Get ItemName by Id
+exports.getItemById = async (req,res) => {
+  const itemId = req.params.item_id;
+  try {
+    // Fetch item by item ID from the database
+    const item = await Item.findByPk(itemId);
+
+    if (!item) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    // Extract item name from the retrieved item
+    const itemName = item.Name;
+    const selling_price = item.selling_price;
+    // Return item name as JSON response
+    res.json({ itemName, selling_price });
+  } catch (error) {
+    // Handle error
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch item name' });
+  }
+
+}
+
 
 //Get Item Image
 exports.getItemImage = async (req, res) => {

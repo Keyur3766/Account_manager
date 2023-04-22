@@ -118,7 +118,6 @@ export default function AddChallanPage() {
   };
   
   const PRODUCTDATA = Array.from(itemdata);
-  
 
   useEffect(()=>{
     getCustomerData();
@@ -154,7 +153,19 @@ export default function AddChallanPage() {
     }
   };
 
-  
+  const downloadChallan = async() => {
+    console.warn('clicked');
+    try{
+      UserServices.DownloadChallan(inputFields, customerName).then((res)=>{
+        console.log('success');
+        return res;
+      })
+    }
+    catch(error){
+      console.log(error);
+    }
+    
+  };
 
 
   const { custname, email, address, city, phone } = values;
@@ -167,6 +178,9 @@ export default function AddChallanPage() {
   const [index,setItemIndex] = useState(0);
   const [inputFields, setInputFields] = useState([{ item_id: '', quantity: '' }]);
 
+
+  const [selected_itemname,setItemNameParent] = useState('');
+  const [selected_itemprice,setItemPriceParent] = useState('');
   const [customerName,setCustomerName] = useState(null);
   
 
@@ -175,14 +189,15 @@ export default function AddChallanPage() {
         const updatedFields = [...prevState];
         updatedFields[index] = {
           ...updatedFields[index],
-          item_id: selected_item // Update the 'item_id' parameter
+          item_id: selected_item,
+          item_name: selected_itemname,
+          item_price: selected_itemprice // Update the 'item_id' parameter
         };
         return updatedFields;
       });
     // setInputFields({...inputFields, item_id: selected_item})
     
   },[selected_item]);
-  console.warn(inputFields);
 
   
   return (
@@ -218,7 +233,8 @@ export default function AddChallanPage() {
                     onCloseFilter={handleCloseItem}
                     productData = {PRODUCTDATA}
                     setItemId = {setItemId}
-                    
+                    setItemPriceParent = {setItemPriceParent}
+                    setItemNameParent = {setItemNameParent}
                   />
                 </Grid>
                 <Grid xs={12} md={2}>
@@ -237,6 +253,9 @@ export default function AddChallanPage() {
           </CardContent>
           <Divider />
           <CardActions sx={{ justifyContent: 'flex-end' }} >
+          <Button variant="outlined" color="primary" onClick={()=>{downloadChallan()}}>
+            Download Challan
+          </Button>
             <Button variant="contained" onClick={()=>{SendDataToBackEnd()}}>
               Save Challan
             </Button>

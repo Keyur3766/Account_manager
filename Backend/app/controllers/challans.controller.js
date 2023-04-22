@@ -1,6 +1,7 @@
 //Used for validation in Node.js
 const Joi = require("joi"); 
-
+const pdf = require('html-pdf');
+const pdfTemplate = require("../documents/index");
 const db = require("../Models");
 const Sequelize = require('sequelize');
 
@@ -88,3 +89,22 @@ exports.addChallan = async(req,res) => {
     });
 }
 
+// Generating Challan PDF
+exports.GenerateChallanPDF = async(req,res) => {
+    // const {inputFields} = req.body;
+
+    pdf.create(pdfTemplate(req.body),{}).toFile(`${__dirname}/result.pdf`, (err) => {
+        if(err){
+            res.send(Promise.reject());
+        }
+        console.log("pdf generated");
+        res.send(Promise.resolve());
+    });
+}
+
+// Downloading Generated PDF
+exports.DownloadChallanPDF = async(req,res) => {
+    console.log("Pdf downloading");
+    console.warn(`${__dirname}`);
+    res.sendFile(`${__dirname}/result.pdf`);
+}
