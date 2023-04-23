@@ -42,14 +42,14 @@ const TABLE_HEAD = [
   { id: 'company', label: 'Mobile Number', alignRight: false },
   { id: 'Email', label: 'Email Address', alignRight: false },
   { id: 'City', label: 'City', alignRight: false },
-  { id: 'status', label: 'Pending Challans', alignRight: false },
+  { id: 'pending', label: 'Pending Challans', alignRight: false },
   { id: '' },
 ];
 
 // ----------------------------------------------------------------------
 
 function descendingComparator(a, b, orderBy) {
-
+  // console.warn(b[orderBy]);
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -66,6 +66,7 @@ function getComparator(order, orderBy) {
 }
 
 function applySortFilter(array, comparator, query) {
+  
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -73,7 +74,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return filter(array, (_user) => _user.Name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }
@@ -93,10 +94,11 @@ export default function UserPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const [currId, setcurId] = useState("");
 
   const [selectedCustomer, setSelectedCustomer] =  useState('');
+  const [pendingchallans, setPendingChallans] = useState([]);
 
   const getCustomerData = async() => {
     UserServices.FetchCustomer().then((res)=>{
@@ -120,10 +122,19 @@ export default function UserPage() {
       });
     });
   };
+  // const PENDINGCHALLANDATA = Array.from(pendingchallans);
 
-  const CUSTOMERDATA = Array.from(data);
+  const CUSTOMERDATA = Array.from(data);  
 
-  console.warn(CUSTOMERDATA);
+  
+
+  const mergeStates = () => {
+    const mergedState = data.map(obj1 => {
+      const obj2 = pendingchallans.find(obj2 => obj2.id === obj1.id);
+      return obj2 ?{ ...obj1, ...obj2 }:obj1;
+    });
+    setData(mergedState);
+  };
 
 useEffect(() => {
   const fetchData = async () => {
@@ -134,17 +145,21 @@ useEffect(() => {
     const promises = res.data.map((entry) => UserServices.Get_ChallanCountById(entry.id).then((res)=>{
       const newPendingChallan = { id: entry.id, pending: res.data };
       setPendingChallans((prevPendingChallans) => [...prevPendingChallans, newPendingChallan]);
+
     }));
     await Promise.all(promises); // wait for all promises to resolve
+    
   };
 
   fetchData();
 }, []);
 
+useEffect(() => {
+  mergeStates();
+}, [pendingchallans]);
 
 
 
-  
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -229,32 +244,25 @@ useEffect(() => {
       // return null;
     }
   };
+
+
+
   const navigate = useNavigate();
   const handleclickChallanPage = (id) => {
     console.log(id);
     // setSelectedCustomer(id);
-
-   
     navigate('/dashboard/GetChallan', { state: { id } });
   }
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - CUSTOMERDATA.length) : 0;
 
   const filteredUsers = applySortFilter(CUSTOMERDATA, getComparator(order, orderBy), filterName);
-
-  const [pendingchallans, setPendingChallans] = useState([]);
-
   
   
   const isNotFound = !filteredUsers.length && !!filterName;
 
   return (
     <>
-      {/* <Routes>
-        <Route exact path={`${path}/GetChallan`} element={<GetChallan/>} />
-     </Routes> */}
-
-
       <Helmet>
         <title> Account Manager </title>
       </Helmet>
@@ -291,7 +299,7 @@ useEffect(() => {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, Name, Email, Address, City, Mobile } = row;
+                    const { id, Name, Email, Address, City, Mobile,pending } = row;
                     const selectedUser = selected.indexOf(Name) !== -1;
 
                     return (
@@ -318,7 +326,7 @@ useEffect(() => {
                         <TableCell align="left">
                           {/* <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label> */}
 
-                          {pendingchallans.map((d, index) =>
+                          {/* {filteredPendingChallans.map((d, index) =>
                             d.id === id ? (
                               <button key={index} onClick={() => handleclickChallanPage(id)}>
                                    <Label color={'error'}>{d.pending}</Label>
@@ -330,7 +338,11 @@ useEffect(() => {
                             ) : (
                               ''
                             )
-                          )}
+                          )} */}
+
+                            <button onClick={() => handleclickChallanPage(id)}>
+                                   <Label color={'error'}>{pending}</Label>
+                              </button>
                         </TableCell>
 
                         <TableCell align="right">
