@@ -174,13 +174,30 @@ export default {
         const pdfBlob = new Blob([res.data], {type: 'application/pdf'});
         saveAs(pdfBlob,'challans.pdf');
       });
-
-    
-    // catch(error){
-    //   console.log(error);
-    //   return error;
-    // }
-    
-    
   },
+
+// Save and Download the Invoice
+  SaveAndDownloadInvoice: async function(customerId, items){
+      console.warn(customerId);
+      console.warn(items);
+
+      try{
+        await axios.post(
+          "http://127.0.0.1:8081/api/invoice/generateInvoice", {
+            customerId: customerId,
+            items: items
+          }
+        )
+        .then(()=> axios.get("http://127.0.0.1:8081/api/invoice/fetchPDF", {responseType: 'blob'}))
+        .then((res)=>{
+          const pdfBlob = new Blob([res.data], {type: 'application/pdf'});
+          saveAs(pdfBlob,'invoice.pdf');
+        });
+        
+      }
+      catch(error){
+        console.log(error);
+      }
+      
+  }
 };

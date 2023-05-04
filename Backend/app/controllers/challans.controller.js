@@ -2,7 +2,7 @@
 const Joi = require("joi"); 
 const pdf = require('html-pdf');
 const pdfTemplate = require("../documents/index");
-const db = require("../Models");
+const db = require("../models");
 const Sequelize = require('sequelize');
 
 

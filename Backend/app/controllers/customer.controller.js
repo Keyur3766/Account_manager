@@ -1,7 +1,7 @@
 //Used for validation in Node.js
 const Joi = require("joi"); 
 
-const db = require("../Models");
+const db = require("../models");
 
 const Customer = db.customer;
 

@@ -5,6 +5,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import AddChallanPage from './AddChallanPage';
+import AddSalesPage  from './AddSale';
 
 
 
@@ -24,7 +25,7 @@ export default function SalesPage() {
           </TabList>
         </Box>
         <TabPanel value="1"><AddChallanPage/></TabPanel>
-        <TabPanel value="2">Add Sale</TabPanel>
+        <TabPanel value="2"><AddSalesPage/></TabPanel>
       </TabContext>
     </Box>
   )

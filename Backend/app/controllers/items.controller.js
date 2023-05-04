@@ -2,7 +2,7 @@
 const Joi = require("joi");
 const path = require("path");
 
-const db = require("../Models");
+const db = require("../models");
 const fs = require("fs");
 
 const Item = db.items;

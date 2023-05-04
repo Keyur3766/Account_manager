@@ -9,6 +9,7 @@ const customerRoutes = require("./app/routes/customers.routes");
 const supplierRoutes = require("./app/routes/suppliers.routes");
 const itemRoutes = require("./app/routes/items.routes");
 const challanRoutes = require("./app/routes/challans.routes");
+const invoiceRoutes = require("./app/routes/invoice.routes");
 global.__basedir = __dirname;
 
 
@@ -33,11 +34,11 @@ db.sequelize.sync();
 // db.sequelize.sync({ force: true }).then(() => {
 //     console.log("db has been re sync");
 // });
-
 app.use("/api/customers/", customerRoutes);
 app.use("/api/suppliers/",supplierRoutes);
 app.use("/api/items/",itemRoutes);
 app.use("/api/challans/",challanRoutes);
+app.use("/api/invoice/",invoiceRoutes);
 
 
 //listening to server connection
