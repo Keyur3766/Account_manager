@@ -20,12 +20,13 @@ import {
   CardHeader,
 } from '@mui/material';
 import { useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 // components
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 
 import { ColorMultiPicker } from '../../../components/color-utils';
+
 
 // ----------------------------------------------------------------------
 
@@ -74,10 +75,10 @@ export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, prod
     onCloseFilter();
   }
   const [itemName,setItemName] = useState(null);
-  
+  const {t} = useTranslation();
   return (
     <>
-      <TextField fullWidth label="Item name" name="itemname" value={itemName || ""} onClick={onOpenFilter} required />
+      <TextField fullWidth label={t('Item name')} name="itemname" value={itemName || ""} onClick={onOpenFilter} required />
       {/* <Button disableRipple color="inherit" endIcon={<Iconify icon="ic:round-filter-list" />} onClick={onOpenFilter}>
         Filters&nbsp;
       </Button> */}
@@ -92,7 +93,7 @@ export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, prod
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
           <Typography variant="subtitle1" sx={{ ml: 1 }}>
-            Items
+            {t('Items')}
           </Typography>
           <IconButton onClick={onCloseFilter}>
             <Iconify icon="eva:close-fill" />
@@ -130,7 +131,7 @@ export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, prod
                 </Box>
                 <Box>
                 <Button variant="outlined" name="item_id" onClick={()=>{handleButtonClick(row.Name,row.id,row.selling_price);}}>
-                    Add Item
+                    {t('Add Item')}
                 </Button>
                 </Box>
               </Stack>

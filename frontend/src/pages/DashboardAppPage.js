@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -18,11 +19,13 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 
+
+
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-
+  const {t} = useTranslation();
   return (
     <>
       <Helmet>
@@ -31,7 +34,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          {t('Hi, Welcome back')}
         </Typography>
 
         <Grid container spacing={3}>

@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -12,6 +13,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import UserServices from '../services/UserServices';
+
 
 // import label from 'src/components/label';
 
@@ -71,11 +73,11 @@ export default function AddSupplierPage() {
 
   const { suppliername, email, address, city, phone } = values;
   
-
+  const {t} = useTranslation();
   return (
     <form autoComplete="off" noValidate onSubmit={handleSubmit}>
       <Card>
-        <CardHeader subheader="The information can be edited" title="Profile" />
+        <CardHeader subheader="The information can be edited" title={t('Add Supplier')} />
         <br />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -84,7 +86,7 @@ export default function AddSupplierPage() {
                 <TextField
                   fullWidth
                   helperText="Specify  company or Supplier name"
-                  label="Supplier name"
+                  label={t('Supplier name')}
                   name="suppliername"
                   onChange={handleChange}
                   required
@@ -93,7 +95,7 @@ export default function AddSupplierPage() {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Select City"
+                  label={t('Select City')}
                   name="city"
                   onChange={handleChange}
                   required
@@ -109,13 +111,13 @@ export default function AddSupplierPage() {
                 </TextField>
               </Grid>
               <Grid xs={12} md={6}>
-                <TextField fullWidth label="Email Address" name="email" onChange={handleChange}  />
+                <TextField fullWidth label={t('Email Address')} name="email" onChange={handleChange}  />
               </Grid>
               <Grid xs={12} md={6}>
-                <TextField fullWidth label="Phone Number" name="phone" onChange={handleChange} type="number" required/>
+                <TextField fullWidth label={t('Mobile Number')} name="phone" onChange={handleChange} type="number" required/>
               </Grid>
               <Grid xs={12} md={12}>
-                <TextField fullWidth label="Address" name="address" onChange={handleChange} required />
+                <TextField fullWidth label={t('Address')} name="address" onChange={handleChange} required />
               </Grid>
             </Grid>
           </Box>
@@ -123,7 +125,7 @@ export default function AddSupplierPage() {
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
           <Button variant="contained" disabled={!suppliername || !phone || !city || !address} onClick={() => SendDataToBackEnd()}>
-            Save details
+            {t('Save Details')}
           </Button>
         </CardActions>
       </Card>

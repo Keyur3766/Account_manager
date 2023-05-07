@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-
+import { useTranslation } from 'react-i18next';
 // @mui
 import {
   List,
@@ -24,6 +24,7 @@ import UserServices from '../../../services/UserServices';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 import { ColorMultiPicker } from '../../../components/color-utils';
+
 
 // ----------------------------------------------------------------------
 
@@ -62,13 +63,11 @@ CustomerList.propTypes = {
 
 export default function CustomerList({ openFilter, onOpenFilter, onCloseFilter, customerData, setCustomerId, setCustomerName, customerName }) {
   // console.log(customerData);
-  
+  const {t} = useTranslation();
   return (
     <>
-      <TextField fullWidth label="Customer Name" value={customerName || ""} name="custname" onClick={onOpenFilter} required />
-      {/* <Button disableRipple color="inherit" endIcon={<Iconify icon="ic:round-filter-list" />} onClick={onOpenFilter}>
-        Filters&nbsp;
-      </Button> */}
+      <TextField fullWidth label={t('Customer Name')} value={customerName || ""} name="custname" onClick={onOpenFilter} required />
+      
 
       <Drawer
         anchor="right"
@@ -80,7 +79,7 @@ export default function CustomerList({ openFilter, onOpenFilter, onCloseFilter, 
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
           <Typography variant="subtitle1" sx={{ ml: 1 }}>
-            Customers
+            {t('Customers')}
           </Typography>
           <IconButton onClick={onCloseFilter}>
             <Iconify icon="eva:close-fill" />
@@ -108,56 +107,14 @@ export default function CustomerList({ openFilter, onOpenFilter, onCloseFilter, 
                     }
                   />
                   <Button variant="outlined" sx={{ mt: 0, mr: 1, flexShrink: 0 }} onClick = {()=>{setCustomerId(row.id);setCustomerName(row.Name);onCloseFilter()}}>
-                    Add
+                    {t('Add')}
                   </Button>
                 </ListItem>
                 <Divider variant="inset" component="li" />
               </>
             );
           })}
-          {/* <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
-            </>
-          }
-        />
-      </ListItem> */}
+          
         </List>
       </Drawer>
     </>

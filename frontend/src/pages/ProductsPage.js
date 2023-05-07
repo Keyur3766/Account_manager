@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useState, useEffect   } from 'react';
+import { useTranslation } from 'react-i18next';
 // @mui
 import { NavLink as RouterLink } from 'react-router-dom';
 import { Container, Stack, Typography, Button} from '@mui/material';
@@ -9,6 +10,7 @@ import { ProductSort, ProductList, ProductCartWidget, ProductFilterSidebar } fro
 // import PRODUCTS from '../_mock/products';
 import Iconify from '../components/iconify';
 import UserServices from '../services/UserServices';
+
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +41,7 @@ export default function ProductsPage() {
   useEffect(()=>{
     getItemsData();
   },[]);
+  const {t} = useTranslation();
   return (
     <>
       <Helmet>
@@ -49,10 +52,10 @@ export default function ProductsPage() {
         
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" sx={{ mb: 5 }}>
-            Products
+            {t('Products')}
           </Typography> 
           <Button component={RouterLink} to="/dashboard/AddProduct" variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Product
+            {t('New Product')}
           </Button>
         </Stack>
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>

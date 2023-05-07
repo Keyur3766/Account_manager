@@ -12,12 +12,13 @@ import {
   Snackbar,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
-
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import CustomerListSidebar from '../sections/@dashboard/sales/CustomerListSidebar';
 import ItemListSidebar from '../sections/@dashboard/sales/ItemListSidebar';
 
 import UserServices from '../services/UserServices';
+
 
 // import label from 'src/components/label';
 
@@ -199,12 +200,12 @@ export default function AddChallanPage() {
     
   },[selected_item]);
 
-  
+  const {t} = useTranslation();
   return (
     <>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Card>
-          <CardHeader subheader={date} title="Add Challan" />
+          <CardHeader subheader={date} title={t('Add Challan')} />
           <br />
           <CardContent sx={{ pt: 0 }}>
             <Box sx={{ m: -1.5 }}>
@@ -238,7 +239,7 @@ export default function AddChallanPage() {
                   />
                 </Grid>
                 <Grid xs={12} md={2}>
-                  <TextField fullWidth label="Quantity" name="quantity" type="number" value={input.quantity} onChange={event => handleFormChange(index, event)}/>
+                  <TextField fullWidth label={t('Quantity (in pieces)')} name="quantity" type="number" value={input.quantity} onChange={event => handleFormChange(index, event)}/>
                 </Grid>
                 <Grid xs={12} md={5}>
                   {/* <TextField fullWidth label="Quantity" name="quantity" onChange={handleChange} type="number" /> */}
@@ -248,16 +249,16 @@ export default function AddChallanPage() {
               })}
             </Box>
             <Button variant="outlined" sx={{ mt: 2 }} onClick={addFields} disabled={!inputFields[index].quantity || !inputFields[index].item_id}>
-              Add more 
+              {t('Add More')} 
             </Button>
           </CardContent>
           <Divider />
           <CardActions sx={{ justifyContent: 'flex-end' }} >
           <Button variant="outlined" color="primary" onClick={()=>{downloadChallan()}}>
-            Download Challan
+            {t('Download Challan')}
           </Button>
             <Button variant="contained" onClick={()=>{SendDataToBackEnd()}}>
-              Save Challan
+              {t('Save Challan')}
             </Button>
           </CardActions>
         </Card>

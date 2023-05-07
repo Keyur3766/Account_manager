@@ -3,7 +3,7 @@ import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { NavLink as RouterLink } from 'react-router-dom';
 import { useState,useEffect } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import {
   Card,
   Table,
@@ -33,6 +33,7 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
 
 import UserServices from '../services/UserServices';
+
 
 
 
@@ -186,7 +187,7 @@ export default function UserPage() {
   const filteredUsers = applySortFilter(SUPPLIERDATA, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredUsers.length && !!filterName;
-
+  const {t} = useTranslation();
   return (
     <>
       <Helmet>
@@ -196,10 +197,10 @@ export default function UserPage() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Supplier
+            {t('Supplier')}
           </Typography>
           <Button component={RouterLink} to="/dashboard/AddSupplier" variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Supplier
+            {t('New Supplier')}
           </Button>
         </Stack>
 

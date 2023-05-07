@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { useTranslation } from 'react-i18next';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import {
@@ -19,6 +20,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import UserServices from '../services/UserServices';
+
 // import label from 'src/components/label';
 
 
@@ -42,7 +44,7 @@ export default function AddProductPage() {
   }, []);
   const navigate = useNavigate();
 
-
+  const {t} = useTranslation();
   const SendDataToBackEnd = async () => {
     
     try {
@@ -67,11 +69,11 @@ export default function AddProductPage() {
   return (
     <form autoComplete="off" noValidate onSubmit={handleSubmit} encType="multipart/form-data">
       <Card>
-        <CardHeader subheader="The information can be edited" title="Add Item" />
+        <CardHeader subheader={t('The information can be edited')} title={t('Add Item')} />
         <br />
         
         <Button sx={{ mx: 2 }} onChange={handleFileChange} variant="contained" component="label">
-          Upload
+          {t('Upload')}
           <input hidden accept="image/*" multiple type="file" name="file" required />
         </Button>
         {
@@ -86,7 +88,7 @@ export default function AddProductPage() {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Enter Product Name here"
+                  label={t('Product Name')}
                   name="product_name"
                   onChange={handleChange}
                   required
@@ -95,7 +97,7 @@ export default function AddProductPage() {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Product Color  (optional)"
+                  label={t('Product Color (optional)')} 
                   name="item_color"
                   onChange={handleChange}
                 />
@@ -103,12 +105,12 @@ export default function AddProductPage() {
               
               <Grid xs={12} md={6}>
                 <FormControl fullWidth sx={{ m: 0 }}>
-                  <InputLabel htmlFor="outlined-adornment-amount">Purchase Price</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-amount">{t('Purchase Price')}</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-amount"
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     onChange={handleChange}
-                    label="Purchase Price"
+                    label={t('Purchase Price')}
                     name="purchase_price"
                     type="number"
                   />
@@ -116,19 +118,19 @@ export default function AddProductPage() {
               </Grid>
               <Grid xs={12} md={6}>
                 <FormControl fullWidth sx={{ m: 0 }}>
-                  <InputLabel htmlFor="outlined-adornment-amount">Selling Price</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-amount">{t('Selling Price')}</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-amount"
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     onChange={handleChange}
-                    label="Selling Price"
+                    label={t('Selling Price')}
                     name="selling_price"
                     type="number"
                   />
                 </FormControl>
               </Grid>
               <Grid xs={12} md={6}>
-                <TextField fullWidth label="Total stocks available" name="stock_available" onChange={handleChange} type="number" required />
+                <TextField fullWidth label={t('Total stocks available')} name="stock_available" onChange={handleChange} type="number" required />
               </Grid>
             </Grid>
           </Box>
@@ -140,7 +142,7 @@ export default function AddProductPage() {
             disabled={!product_name || !purchase_price || !selling_price || !stock_available || !fileState}
             onClick={() => SendDataToBackEnd()}
           >
-            Save details
+            {t('Save Details')}
           </Button>
         </CardActions>
       </Card>

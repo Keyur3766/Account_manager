@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +39,7 @@ export default function UserListHead({
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
+  const {t} = useTranslation();
   return (
     <TableHead>
       <TableRow>
@@ -61,7 +62,7 @@ export default function UserListHead({
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
+              {t(headCell.label)}
               {orderBy === headCell.id ? (
                 <Box sx={{ ...visuallyHidden }}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</Box>
               ) : null}

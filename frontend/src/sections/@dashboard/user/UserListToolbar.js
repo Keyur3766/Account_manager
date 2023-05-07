@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment } from '@mui/material';
 // component
 import Iconify from '../../../components/iconify';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +42,7 @@ UserListToolbar.propTypes = {
 };
 
 export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
+  const {t} = useTranslation();
   return (
     <StyledRoot
       sx={{
@@ -56,7 +60,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
         <StyledSearch
           value={filterName}
           onChange={onFilterName}
-          placeholder="Search user..."
+          placeholder={t('Search Customer')} 
           startAdornment={
             <InputAdornment position="start">
               <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />

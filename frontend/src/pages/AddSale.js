@@ -12,12 +12,13 @@ import {
   Snackbar,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
-
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import CustomerListSidebar from '../sections/@dashboard/sales/CustomerListSidebar';
 import ItemListSidebar from '../sections/@dashboard/sales/ItemListSidebar';
 
 import UserServices from '../services/UserServices';
+
 
 // import label from 'src/components/label';
 
@@ -168,7 +169,7 @@ export default function AddSalesPage() {
   const [selected_itemname,setItemNameParent] = useState('');
   const [selected_itemprice,setItemPriceParent] = useState('');
   const [customerName,setCustomerName] = useState(null);
-  
+  const {t} = useTranslation();
 
   useEffect(()=>{
       setInputFields(prevState => {
@@ -189,7 +190,7 @@ export default function AddSalesPage() {
     <>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Card>
-          <CardHeader subheader={date} title="Add Sale" />
+          <CardHeader subheader={date} title={t('Add Sale')} />
           <br />
           <CardContent sx={{ pt: 0 }}>
             <Box sx={{ m: -1.5 }}>
@@ -233,7 +234,7 @@ export default function AddSalesPage() {
               })}
             </Box>
             <Button variant="outlined" sx={{ mt: 2 }} onClick={addFields} disabled={!inputFields[index].quantity || !inputFields[index].item_id}>
-              Add more 
+              {t('Add More')} 
             </Button>
           </CardContent>
           <Divider />
@@ -242,7 +243,7 @@ export default function AddSalesPage() {
             Download Invoice
           </Button> */}
             <Button variant="contained" onClick={()=>{saveAndDownloadInvoices()}}>
-              Save & Get Invoice
+              {t('Save & Get Invoice')}
             </Button>
           </CardActions>
         </Card>

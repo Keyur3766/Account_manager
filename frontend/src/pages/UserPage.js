@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { NavLink as RouterLink, json,Link, Route,Routes, useNavigate } from 'react-router-dom';
@@ -33,6 +34,7 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 import USERLIST from '../_mock/user';
 import GetChallan from './GetChallans'
 import UserServices from '../services/UserServices';
+
 
 // SELECT customer_id,issue_date,COUNT(*) FROM challans WHERE payment_status='false' and customer_id=4 GROUP BY customer_id,issue_date;
 // ----------------------------------------------------------------------
@@ -261,6 +263,7 @@ useEffect(() => {
   
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const { t } = useTranslation();
   return (
     <>
       <Helmet>
@@ -270,7 +273,7 @@ useEffect(() => {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Customer
+            {t('customer')}
           </Typography>
           <Button
             component={RouterLink}
@@ -278,7 +281,7 @@ useEffect(() => {
             variant="contained"
             startIcon={<Iconify icon="eva:plus-fill" />}
           >
-            New Customer
+            {t('New Customer')}
           </Button>
         </Stack>
 

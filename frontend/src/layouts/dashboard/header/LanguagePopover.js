@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, MenuItem, Stack, IconButton, Popover } from '@mui/material';
@@ -12,14 +13,14 @@ const LANGS = [
     icon: '/assets/icons/ic_flag_en.svg',
   },
   {
-    value: 'de',
-    label: 'German',
-    icon: '/assets/icons/ic_flag_de.svg',
+    value: 'hn',
+    label: 'Hindi',
+    icon: '/assets/icons/hindi.png',
   },
   {
-    value: 'fr',
-    label: 'French',
-    icon: '/assets/icons/ic_flag_fr.svg',
+    value: 'gj',
+    label: 'Gujarati',
+    icon: '/assets/icons/gujarati.png',
   },
 ];
 
@@ -35,6 +36,15 @@ export default function LanguagePopover() {
   const handleClose = () => {
     setOpen(null);
   };
+  const { i18n } = useTranslation();
+
+  const [img,setImg] = useState(LANGS[0].icon);
+
+  const changeLanguageHandler = (option) => {
+    const languageValue = option.value;
+    setImg(option.icon);
+    i18n.changeLanguage(languageValue);
+  }
 
   return (
     <>
@@ -49,7 +59,7 @@ export default function LanguagePopover() {
           }),
         }}
       >
-        <img src={LANGS[0].icon} alt={LANGS[0].label} />
+        <img src={img} alt={LANGS[0].label} />
       </IconButton>
 
       <Popover
@@ -72,11 +82,18 @@ export default function LanguagePopover() {
           },
         }}
       >
-        <Stack spacing={0.75}>
+        <Stack spacing={0.75} >
           {LANGS.map((option) => (
-            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => handleClose()}>
+            <MenuItem key={option.value} 
+                      value={option.value}
+                      selected={option.value === i18n.language}
+                    onClick={() => {
+                              handleClose();
+                              changeLanguageHandler(option);
+                    }}
+            
+            >
               <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
-
               {option.label}
             </MenuItem>
           ))}
