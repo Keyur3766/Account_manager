@@ -1,12 +1,17 @@
-import { ErrorResponse } from '@remix-run/router';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
-import { func } from 'prop-types';
+import Cookie from 'js-cookie';
+
 
 export default {
   FetchCustomer: async function () {
     try {
-      const response = await axios.get('http://127.0.0.1:8081/api/customers/getCustomers');
+
+      const response = await axios.get('http://127.0.0.1:8081/api/customers/getCustomers', 
+        // {
+        //     withCredentials: true, // Send cookies with the request
+        // },
+      );
       return response;
     } catch (error) {
       console.log(error);
@@ -161,6 +166,19 @@ export default {
     }
   },
 
+  Update_ChallanStatusById: async function(id){
+    try{
+      const response = await axios.put(
+        `http://127.0.0.1:8081/api/challans/updateChallan/${id}`
+      );
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
+
   DownloadChallan: async function(inputFields, customerName){
       console.warn(inputFields);
       await axios.post(
@@ -193,11 +211,50 @@ export default {
           const pdfBlob = new Blob([res.data], {type: 'application/pdf'});
           saveAs(pdfBlob,'invoice.pdf');
         });
-        
       }
       catch(error){
         console.log(error);
       }
-      
+  },
+
+  // Generate token for sign-in functionality
+  GenerateLoginToken: async function(email, password){
+
+    try{
+      const response = await axios.post(
+        "http://127.0.0.1:8081/api/login/generateToken", {
+          username: email,
+          password: password
+        }
+      );
+
+      if(response.status===200){
+        Cookie.set('jwtToken', JSON.stringify(response.data), { expires: 1/24 });
+        // localStorage.setItem("user", JSON.stringify(response.data));
+      }
+      console.warn(response)
+      return response;
+    }
+    catch(error){
+      // console.log(error);
+      return error;
+    }
+  },
+  // Remove token for Logout functioality
+  RemoveToken: async function(){
+    try{
+      const response = await axios.post(
+        "http://127.0.0.1:8081/api/login/logout", {
+        }
+      );
+      if(response.status===200){
+        Cookie.remove('jwtToken');
+      }
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
   }
-};
+}

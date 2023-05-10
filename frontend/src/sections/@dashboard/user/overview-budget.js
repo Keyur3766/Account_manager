@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { ArrowDownIcon, ArrowUpIcon, CurrencyDollarIcon } from '@heroicons/react/24/solid';
 import { Avatar, Card, CardContent, Stack, SvgIcon, Typography,Checkbox, Button } from '@mui/material';
 
 export const OverviewBudget = (props) => {
-  const { difference, positive = false, sx, value } = props;
+  const { difference, positive = false, sx, value, saveAndDownloadInvoices, isChecked, handleCheckboxChange } = props;
 
   return (
     <Card sx={sx}>
@@ -43,11 +44,12 @@ export const OverviewBudget = (props) => {
           </Stack>
         )}
         <Stack direction="row" alignItems="center" spacing={1}>
-          <Checkbox color="success" />
+          <Checkbox color="success" checked={isChecked}
+          onChange={handleCheckboxChange} />
           <Typography>Do you want to mark it as Paid?</Typography>
         </Stack>
 
-        <Button variant="outlined">Get Invoice</Button>
+        <Button variant="outlined" onClick={saveAndDownloadInvoices}>Get Invoice</Button>
       </CardContent>
     </Card>
   );

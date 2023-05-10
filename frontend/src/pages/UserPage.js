@@ -4,6 +4,7 @@ import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { NavLink as RouterLink, json,Link, Route,Routes, useNavigate } from 'react-router-dom';
 import { useState,useEffect } from 'react';
+import Cookie from 'js-cookie';
 
 import {
   Card,
@@ -103,7 +104,9 @@ export default function UserPage() {
   const [pendingchallans, setPendingChallans] = useState([]);
 
   const getCustomerData = async() => {
-    UserServices.FetchCustomer().then((res)=>{
+    
+    
+    await UserServices.FetchCustomer().then((res)=>{
       setData(res.data);
       
       res.data.map(d => {
@@ -140,6 +143,9 @@ export default function UserPage() {
 
 useEffect(() => {
   const fetchData = async () => {
+    // const token = await Cookie.get('jwtToken');
+
+
     const res = await UserServices.FetchCustomer();
 
     setData(res.data);

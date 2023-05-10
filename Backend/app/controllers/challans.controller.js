@@ -49,7 +49,7 @@ exports.findAndGetChallanDetails = async(req,res)=>{
         include: [
             {
                 model: db.items,
-                attributes: ["Name","selling_price"]
+                attributes: ["id","Name","selling_price"]
             }  
         ],
         group: ['issue_date','customer_id','item.id'],
@@ -88,6 +88,24 @@ exports.addChallan = async(req,res) => {
         });
     });
 }
+
+// Mark status of the challan as paid for particular customer
+
+exports.UpdateChallan = async(req,res) => {
+    const id = req.params.id;
+    console.warn(id);
+    
+    Challans.update({payment_status: true}, {where: {customer_id: id}})
+    .then(numAffectedRows => {
+        res.status(200).send(`Updated ${numAffectedRows} row(s)`);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).send("Something went wrong");
+    });
+}
+
+
 
 // Generating Challan PDF
 exports.GenerateChallanPDF = async(req,res) => {

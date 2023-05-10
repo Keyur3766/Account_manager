@@ -129,7 +129,7 @@ export default function AddSalesPage() {
   
 
   
-
+  
   const saveAndDownloadInvoices = async() => {
     console.warn('clicked');
     try{
@@ -171,6 +171,7 @@ export default function AddSalesPage() {
   const [customerName,setCustomerName] = useState(null);
   const {t} = useTranslation();
 
+  // console.warn(inputFields);
   useEffect(()=>{
       setInputFields(prevState => {
         const updatedFields = [...prevState];

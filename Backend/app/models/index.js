@@ -25,6 +25,7 @@ db.items = require("./items.modal")(sequelize,Sequelize);
 db.challans = require("./challans.modal")(sequelize,Sequelize);
 db.Invoice = require("./Invoice.modal")(sequelize,Sequelize);
 db.InvoiceItem = require("./invoiceItem.modal")(sequelize,Sequelize);
+db.User = require("./users.modal")(sequelize,Sequelize);
 
 
 //challans customer relation

@@ -10,6 +10,7 @@ const supplierRoutes = require("./app/routes/suppliers.routes");
 const itemRoutes = require("./app/routes/items.routes");
 const challanRoutes = require("./app/routes/challans.routes");
 const invoiceRoutes = require("./app/routes/invoice.routes");
+const loginRoutes = require("./app/routes/login.routes");
 global.__basedir = __dirname;
 
 
@@ -18,6 +19,9 @@ const PORT = process.env.PORT || 8081
 
 //assigning the variable app to express
 const app = express()
+
+
+
 
 //middleware
 app.use(cors());
@@ -39,6 +43,7 @@ app.use("/api/suppliers/",supplierRoutes);
 app.use("/api/items/",itemRoutes);
 app.use("/api/challans/",challanRoutes);
 app.use("/api/invoice/",invoiceRoutes);
+app.use("/api/login/", loginRoutes);
 
 
 //listening to server connection

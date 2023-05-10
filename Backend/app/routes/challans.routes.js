@@ -1,6 +1,5 @@
 const challanController = require("../controllers/challans.controller");
-const {addChallan, findAndGetChallans, findAndGetChallanDetails,GenerateChallanPDF, DownloadChallanPDF} = challanController;
-
+const {addChallan, findAndGetChallans, findAndGetChallanDetails,GenerateChallanPDF, DownloadChallanPDF, UpdateChallan} = challanController;
 
 
 
@@ -22,6 +21,8 @@ router.post('/createChallanPDF',GenerateChallanPDF);
 // Get Challan PDF
 router.get("/fetchPDF", DownloadChallanPDF);
 
+// Mark the challan as paid for the particular customer
+router.put("/updateChallan/:id", UpdateChallan);
 
 //Delete Customer
 // router.delete("/deleteCustomers/:id",Delete_Customer);
