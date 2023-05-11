@@ -1,5 +1,5 @@
 const itemsController = require("../controllers/items.controller");
-const {addItems, getItemImage, getItems, Delete_Item, getItemById} = itemsController;
+const {addItems, getItemImage, getItems, Delete_Item, getItemById, UpdateStockIns,UpdateStockOUTs} = itemsController;
 const upload = require("../middleware/upload");
 const express = require("express")
 var router = express.Router();
@@ -22,5 +22,10 @@ router.delete("/getItems/:id",Delete_Item);
 // Get item name by Id
 router.get("/getItemById/:item_id", getItemById);
 
+// Add stocks for particular id
+router.put("/updateStockIn/:item_id",UpdateStockIns);
+
+// remove stocks for particular id
+router.put("/updateStockOUT/:item_id",UpdateStockOUTs);
 
 module.exports = router;

@@ -256,5 +256,38 @@ export default {
       console.log(error);
       return error;
     }
+  },
+
+  UpdateStockIN: async function(id, quantity){
+    try{
+        const response = await axios.put(
+          `http://127.0.0.1:8081/api/items/updateStockIn/${id}`,
+          {
+            quantity: quantity
+          }
+        );
+
+        return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
+  UpdateStockOUT: async function(id, quantity){
+    try{
+        const response = await axios.put(
+          `http://127.0.0.1:8081/api/items/updateStockOut/${id}`,
+          {
+            quantity: quantity
+          }
+        );
+
+        return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
   }
 }

@@ -11,7 +11,9 @@ const Item = db.items;
 exports.getItems = async (req, res) => {
   try {
     // console.log("From API:");
-    const items = await Item.findAll()
+    const items = await Item.findAll({order: [
+      ['total_stocks', 'DESC'],
+    ]})
       .then((items) => {
         items.map((i) => {
           const itemimage = i.imageData.toString("base64");
@@ -26,6 +28,9 @@ exports.getItems = async (req, res) => {
     return res.status(500).send(error.mesage);
   }
 };
+
+
+
 
 // Get ItemName by Id
 exports.getItemById = async (req,res) => {
@@ -50,6 +55,46 @@ exports.getItemById = async (req,res) => {
   }
 
 }
+
+
+// Manage stock INs
+exports.UpdateStockIns = async(req,res) => {
+  const itemId = req.params.item_id;
+
+  const quant = req.body.quantity;
+  try{
+    // Fetch item by item ID from the database
+    const item = await Item.findByPk(itemId);
+    item.total_stocks += parseInt(quant,10);
+
+    await item.save();
+
+    res.status(200).send("stock added successfully");
+  }
+  catch(err){
+    return res.status(500).send(err.mesage);
+  }
+}
+
+// Manage stock INs
+exports.UpdateStockOUTs = async(req,res) => {
+  const itemId = req.params.item_id;
+
+  const quant = req.body.quantity;
+  try{
+    // Fetch item by item ID from the database
+    const item = await Item.findByPk(itemId);
+    item.total_stocks -= parseInt(quant,10);
+
+    await item.save();
+
+    res.status(200).send("stock deleted successfully");
+  }
+  catch(err){
+    return res.status(500).send(err.mesage);
+  }
+}
+
 
 
 //Get Item Image
