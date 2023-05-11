@@ -70,7 +70,6 @@ exports.addChallan = async(req,res) => {
         item_id,
         quantity,
     } = req.body;
-    console.log(customer_id);
 
     const challan = {
         customer_id: req.body.customer_id,

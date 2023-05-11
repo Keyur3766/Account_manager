@@ -14,6 +14,28 @@ exports.GetCustomers = async(req,res) => {
     res.status(200).send(data);
 }
 
+//Get customer by Id
+exports.GetCustomerById = async(req,res) => {
+    const customer_id = req.params.id;
+    try {
+        // Fetch item by item ID from the database
+        const customer = await Customer.findByPk(customer_id);
+
+        if (!customer) {
+        return res.status(404).json({ error: 'Customer not found' });
+        }
+
+        // Extract item name from the retrieved item
+        const customerName = customer.Name;
+        // Return item name as JSON response
+        res.json({ customerName });
+    } catch (error) {
+        // Handle error
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch customer name' });
+    }
+}
+
 
 
 //Post Request Customer

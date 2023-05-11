@@ -26,6 +26,7 @@ db.challans = require("./challans.modal")(sequelize,Sequelize);
 db.Invoice = require("./Invoice.modal")(sequelize,Sequelize);
 db.InvoiceItem = require("./invoiceItem.modal")(sequelize,Sequelize);
 db.User = require("./users.modal")(sequelize,Sequelize);
+db.Transaction = require("./transaction.modal")(sequelize,Sequelize);
 
 
 //challans customer relation
@@ -35,6 +36,11 @@ db.challans.belongsTo(db.customer, {foreignKey: "customer_id"});
 //challan item relation
 db.items.hasMany(db.challans, {foreignKey: "item_id"});
 db.challans.belongsTo(db.items, {foreignKey: "item_id"});
+
+//transaction customer relation
+db.customer.hasMany(db.Transaction, {foreignKey: "customer_id"});
+db.Transaction.belongsTo(db.customer, {foreignKey: "customer_id"});
+
 
 // Invoice associations
 db.items.belongsToMany(db.Invoice, { through: db.InvoiceItem });

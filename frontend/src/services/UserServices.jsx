@@ -12,6 +12,7 @@ export default {
         //     withCredentials: true, // Send cookies with the request
         // },
       );
+
       return response;
     } catch (error) {
       console.log(error);
@@ -289,5 +290,60 @@ export default {
       console.log(error);
       return error;
     }
-  }
+  },
+
+  FetchTransactions: async function(id){
+    try{
+      const response = await axios.get(
+        `http://127.0.0.1:8081/api/transactions/getTransactionById/${id}`
+      )
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
+
+  FetchCustomerByID: async function(id){
+    try{
+      const response = await axios.get(
+        `http://127.0.0.1:8081/api/customers/getCustomers/${id}`
+      )
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
+  AddTransaction: async function(id,amount,purpose){
+    try{
+      const response = await axios.post(
+        `http://127.0.0.1:8081/api/transactions/addTransaction`, {
+          customer_id: id,
+          amount: amount,
+          purpose: purpose
+        }
+      )
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
+  GetTransactionAmountById: async function(id){
+    try{
+      const response = await axios.get(
+        `http://127.0.0.1:8081/api/transactions/getTransactionAmountById/${id}`
+      )
+      return response;
+    }
+    catch(error){
+      console.log(error);
+      return error;
+    }
+  },
+
 }

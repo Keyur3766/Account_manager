@@ -11,6 +11,7 @@ const itemRoutes = require("./app/routes/items.routes");
 const challanRoutes = require("./app/routes/challans.routes");
 const invoiceRoutes = require("./app/routes/invoice.routes");
 const loginRoutes = require("./app/routes/login.routes");
+const transactionRoutes = require("./app/routes/transaction.routes");
 global.__basedir = __dirname;
 
 
@@ -44,6 +45,7 @@ app.use("/api/items/",itemRoutes);
 app.use("/api/challans/",challanRoutes);
 app.use("/api/invoice/",invoiceRoutes);
 app.use("/api/login/", loginRoutes);
+app.use("/api/transactions/", transactionRoutes);
 
 
 //listening to server connection

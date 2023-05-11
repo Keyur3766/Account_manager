@@ -35,8 +35,8 @@ const navConfig = [
     icon: icon('ic_blog'),
   },
   {
-    title: 'blog',
-    path: '/dashboard/blog',
+    title: 'transactions',
+    path: '/dashboard/customerTransactions',
     icon: icon('ic_blog'),
   },
   {

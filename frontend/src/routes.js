@@ -15,6 +15,8 @@ import AddSupplierPage from './pages/AddSupplierPage';
 import AddProductPage from './pages/AddProductPage';
 import SalesPage from './pages/salesPage';
 import GetChallans from './pages/GetChallans';
+import TransactionPage from './pages/transactionsPage';
+import TransactionCustomerPage from './pages/transactionCustomerPage';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +32,8 @@ export default function Router() {
         { path: 'supplier', element: <SupplierPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'sales', element: <SalesPage /> },
-        // { path: 'blog', element: <BlogPage /> },
+        { path: 'customerTransactions', element: <TransactionCustomerPage /> },
+        { path: 'customerTransactions/details', element: <TransactionPage /> },
         { path: 'AddCustomer', element: <AddCustomerPage /> },
         { path: 'AddSupplier', element: <AddSupplierPage /> },
         { path: 'AddProduct', element: <AddProductPage /> },

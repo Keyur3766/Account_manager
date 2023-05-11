@@ -93,7 +93,7 @@ export default function AddProductPage() {
                   onChange={handleChange}
                   required
                 />
-              </Grid>
+              </Grid> 
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
