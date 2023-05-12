@@ -108,7 +108,7 @@ export default function AddProductPage() {
                   <InputLabel htmlFor="outlined-adornment-amount">{t('Purchase Price')}</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-amount"
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    startAdornment={<InputAdornment position="start">&#x20B9;</InputAdornment>}
                     onChange={handleChange}
                     label={t('Purchase Price')}
                     name="purchase_price"
@@ -121,7 +121,7 @@ export default function AddProductPage() {
                   <InputLabel htmlFor="outlined-adornment-amount">{t('Selling Price')}</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-amount"
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                    startAdornment={<InputAdornment position="start">&#x20B9;</InputAdornment>}
                     onChange={handleChange}
                     label={t('Selling Price')}
                     name="selling_price"

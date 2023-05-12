@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Card, Link, Typography, Stack, Popover, MenuItem, IconButton, Button, Dialog, FormHelperText,DialogActions, DialogTitle, DialogContent, DialogContentText,TextField, InputAdornment, FilledInput, OutlinedInput, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 // utils
 import { fCurrency } from '../../../utils/formatNumber';
 // components
@@ -28,6 +29,7 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product, callback }) {
+  const {t} = useTranslation();
   const [open, setOpen] = useState(null);
 
   const { Name, selling_price, purchase_price, item_color, total_stocks, imageType, imageData, imageName } = product;
@@ -132,12 +134,12 @@ export default function ShopProductCard({ product, callback }) {
           </Link>
 
           <Typography component="span" variant="body1">
-            Purchase Price: &nbsp; {purchase_price}
+            Purchase Price: &nbsp; &#x20B9;{purchase_price}
           </Typography>
 
           <Typography variant="subtitle1">
             Sale Price: &nbsp;
-            {fCurrency(selling_price)}
+            &#x20B9;{selling_price}
           </Typography>
 
           <Typography variant="subtitle2">
@@ -153,17 +155,17 @@ export default function ShopProductCard({ product, callback }) {
             color="success"
             sx={{ color: '#006400', borderColor: '#006400' }}
           >
-            + STOCK IN
+            + {t('STOCK IN')}
           </Button>
           <Button onClick={handleDialogOpenStockOut} variant="outlined" color="error">
-            - STOCK OUT
+            - {t('STOCK OUT')}
           </Button>
         </Stack>
         {/* Dialog box component for stock In starts */}
         <Dialog open={dialogopenstockIn} onClose={handleDialogCloseStockIn}>
-          <DialogTitle>Stock In</DialogTitle>
+          <DialogTitle>{t('Stock In')}</DialogTitle>
           <DialogContent>
-            <DialogContentText>Enter quantity of purchased or manufactured items</DialogContentText>
+            <DialogContentText>{t('Enter quantity of purchased or manufactured items')}</DialogContentText>
 
             <Grid spacing={3}>
               <Grid xs={12} md={12}>
@@ -177,7 +179,7 @@ export default function ShopProductCard({ product, callback }) {
                   onChange={(e) => setstockInQuant(e.target.value)}
                   fullWidth
                   variant="standard"
-                  endAdornment={<InputAdornment position="end">Pieces</InputAdornment>}
+                  endAdornment={<InputAdornment position="end">{t('Pieces')}</InputAdornment>}
                 />
               </Grid>
             </Grid>
@@ -194,7 +196,7 @@ export default function ShopProductCard({ product, callback }) {
                   }}
                   disabled
                 />
-                <FormHelperText id="outlined-weight-helper-text">Available stock</FormHelperText>
+                <FormHelperText id="outlined-weight-helper-text">{t('Available stock')}</FormHelperText>
               </Grid>
 
               <Grid xs={12} md={5.7}>
@@ -202,19 +204,19 @@ export default function ShopProductCard({ product, callback }) {
                   id="outlined-adornment-weight"
                   aria-describedby="outlined-weight-helper-text"
                   label="Add sale price for pieces"
-                  value={fCurrency(purchase_price)}
+                  value={purchase_price}
                   inputProps={{
                     'aria-label': 'weight',
                   }}
                   disabled
                 />
-                <FormHelperText id="outlined-weight-helper-text">Purchase Price</FormHelperText>
+                <FormHelperText id="outlined-weight-helper-text">{t('Purchase Price')}</FormHelperText>
               </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleDialogCloseStockIn}>Cancel</Button>
-            <Button onClick={handleStockInrequest}>Stock IN</Button>
+            <Button onClick={handleDialogCloseStockIn}>{t('Cancel')}</Button>
+            <Button onClick={handleStockInrequest}>{t('Stock IN')}</Button>
           </DialogActions>
         </Dialog>
 
@@ -224,9 +226,9 @@ export default function ShopProductCard({ product, callback }) {
 
         {/* Dialogue for stock out starts */}
         <Dialog open={dialogopenstockOut} onClose={handleDialogCloseStockOut}>
-          <DialogTitle>Stock OUT</DialogTitle>
+          <DialogTitle>{t('Stock OUT')}</DialogTitle>
           <DialogContent>
-            <DialogContentText>Enter quantity of sold items</DialogContentText>
+            <DialogContentText>{t('Enter quantity of sold items')}</DialogContentText>
 
             <Grid spacing={3}>
               <Grid xs={12} md={12}>
@@ -240,7 +242,7 @@ export default function ShopProductCard({ product, callback }) {
                   onChange={(e) => setstockOutQuant(e.target.value)}
                   fullWidth
                   variant="standard"
-                  endAdornment={<InputAdornment position="end">Pieces</InputAdornment>}
+                  endAdornment={<InputAdornment position="end">{t('Pieces')}</InputAdornment>}
                 />
               </Grid>
             </Grid>
@@ -257,7 +259,7 @@ export default function ShopProductCard({ product, callback }) {
                   }}
                   disabled
                 />
-                <FormHelperText id="outlined-weight-helper-text">Available stock</FormHelperText>
+                <FormHelperText id="outlined-weight-helper-text">{t('Available stock')}</FormHelperText>
               </Grid>
 
               <Grid xs={12} md={5.7}>
@@ -265,19 +267,19 @@ export default function ShopProductCard({ product, callback }) {
                   id="outlined-adornment-weight"
                   aria-describedby="outlined-weight-helper-text"
                   label="Add sale price for pieces"
-                  value={fCurrency(selling_price)}
+                  value={selling_price}
                   inputProps={{
                     'aria-label': 'weight',
                   }}
                   disabled
                 />
-                <FormHelperText id="outlined-weight-helper-text">Sale Price</FormHelperText>
+                <FormHelperText id="outlined-weight-helper-text">{t('Sale Price')}</FormHelperText>
               </Grid>
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleDialogCloseStockOut}>Cancel</Button>
-            <Button onClick={handleStockoutrequest}>Stock OUT</Button>
+            <Button onClick={handleDialogCloseStockOut}>{t('Cancel')}</Button>
+            <Button onClick={handleStockoutrequest}>{t('Stock OUT')}</Button>
           </DialogActions>
         </Dialog>
 

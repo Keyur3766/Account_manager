@@ -27,6 +27,7 @@ import Label from '../components/label';
 
 
 
+
 // ----------------------------------------------------------------------
 
 export const SORT_BY_OPTIONS = [
@@ -122,7 +123,7 @@ export default function TransactionCustomerPage() {
               <>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <Avatar alt="Remy Sharp" src="/assets/images/avatars/avatar_10.jpg" />
                   </ListItemAvatar>
                   <ListItemText
                     primary={row.Name}
@@ -140,17 +141,16 @@ export default function TransactionCustomerPage() {
                       {row.amount>0? 
                       <Label color={'success'}>
                       <Typography variant="subtitle1" component="subtitle1">
-                        You'll get {row.amount}
+                        {t(`You'll give`)} &#x20B9;{row.amount}
                       </Typography>
                       </Label>
                         :
                         <Label color={'error'}>
                       <Typography variant="subtitle1" component="subtitle1">
-                        You'll give {Math.abs(row.amount)}
+                        {t(`You'll get`)} &#x20B9;{Math.abs(row.amount)}
                       </Typography>
                       </Label>
                       }
-
 
                     <Button
                       variant="outlined"

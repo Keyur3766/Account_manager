@@ -125,7 +125,7 @@ export default function ItemList({ openFilter, onOpenFilter, onCloseFilter, prod
                   </Link>
 
                   <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-                    Sale price: {row.selling_price}
+                    Sale price: &#x20B9;{row.selling_price}
                   </Typography>
 
                 </Box>

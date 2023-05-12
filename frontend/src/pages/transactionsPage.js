@@ -91,7 +91,7 @@ export default function TransactionPage() {
   return (
     <>
       <Card>
-        <CardHeader title="Transactions" />
+        <CardHeader title={t('Transactions')} />
 
         <Scrollbar>
           <Stack spacing={3} sx={{ p: 3, pr: 0 }}>
@@ -124,12 +124,12 @@ export default function TransactionPage() {
             onClick={toggleGetDrawer}
           >
             <Typography variant="button" sx={{ color: 'white', fontSize: 16 }}>
-              You'll Get
+              {t(`You'll Get`)}
             </Typography>
           </Button>
           <Button variant="contained" color="error" sx={{ width: '40%' }} onClick={toggleGiveDrawer}>
             <Typography variant="button" sx={{ color: 'white', fontSize: 16 }}>
-              You'll Give
+              {t(`You'll Give`)}
             </Typography>
           </Button>
         </Stack>
@@ -154,7 +154,7 @@ export default function TransactionPage() {
         <div style={{ height: 300 }}>
           <Box sx={{p:3, px:6 , width:'100%'}}>
             <Typography sx={{ mt: 1, color: '#229A16' }} variant="h5" align="center" gutterBottom>
-              You got {creditAmount} from {customerName}
+              {t(`You got ${creditAmount} from ${customerName}`)}
             </Typography>
 
             <Stack spacing={3} sx={{width:'100%', alignItems:'center'}}>
@@ -162,7 +162,7 @@ export default function TransactionPage() {
                     <InputLabel htmlFor="outlined-adornment-amount" color="success">{t('Amount')}</InputLabel>
                     <OutlinedInput
                     id="outlined-adornment-amount"
-                    startAdornment={<InputAdornment position="start" sx={{color: '#229A16'}}>$</InputAdornment>}
+                    startAdornment={<InputAdornment position="start" sx={{color: '#229A16'}}>&#x20B9;</InputAdornment>}
                     label={t('Amount')}
                     onChange={(e)=> setCreditAmount(e.target.value)}
                     name="amount"
@@ -189,7 +189,7 @@ export default function TransactionPage() {
             onClick={sendCreditDatatoBackend}
           >
             <Typography variant="button" sx={{ color: 'white', fontSize: 16 }}>
-              Save
+              {t('Save')}
             </Typography>
           </Button>
             </Stack>
@@ -226,7 +226,7 @@ export default function TransactionPage() {
                     <InputLabel htmlFor="outlined-adornment-amount" color="error">{t('Amount')}</InputLabel>
                     <OutlinedInput
                     id="outlined-adornment-amount"
-                    startAdornment={<InputAdornment position="start" color="error">$</InputAdornment>}
+                    startAdornment={<InputAdornment position="start" color="error">&#x20B9;</InputAdornment>}
                     label={t('Amount')}
                     name="amount"
                     type="number"
@@ -254,7 +254,7 @@ export default function TransactionPage() {
             onClick={sendDebitDatatoBackend}
           >
             <Typography variant="button" sx={{ color: 'white', fontSize: 16 }}>
-              Save
+            {t('Save')}
             </Typography>
           </Button>
             </Stack>
@@ -279,6 +279,7 @@ export default function TransactionPage() {
 // };
 
 function TransactionItem({item}) {
+  const {t} = useTranslation();
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -326,11 +327,11 @@ function TransactionItem({item}) {
       {item.amount > 0?
 
       <Typography variant="subtitle1" sx={{ pr: 3, flexShrink: 0, color: 'green' }}>
-         {item.amount} Credited
+         &#x20B9;{item.amount} {t('Credited')}
       </Typography>
       :
       <Typography variant="subtitle1" sx={{ pr: 3, flexShrink: 0, color: 'red' }}>
-         {Math.abs(item.amount)} Debited
+         &#x20B9;{Math.abs(item.amount)} {t('Debited')}
       </Typography>
 
       } 

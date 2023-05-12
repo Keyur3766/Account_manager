@@ -236,24 +236,24 @@ module.exports = ({customer,items, total_amount, id}) => {
                 <tr>
                   <td class="service">${row.Name}</td>
                   <td class="desc">Invoice item</td>
-                  <td class="unit">$ ${row.selling_price}</td>
+                  <td class="unit">&#x20B9; ${row.selling_price}</td>
                   <td class="qty">${row.invoice_item.quantity}</td>
-                  <td class="total">$ ${ccyFormat(row.selling_price * row.invoice_item.quantity)}</td>
+                  <td class="total">&#x20B9; ${ccyFormat(row.selling_price * row.invoice_item.quantity)}</td>
                 </tr>
                 `
             })}
               
               <tr>
                 <td colspan="4">SUBTOTAL</td>
-                <td class="total">$ ${ccyFormat(total)}</td>
+                <td class="total">&#x20B9; ${ccyFormat(total)}</td>
               </tr>
               <tr>
                 <td colspan="4">TAX 18%</td>
-                <td class="total">$${ccyFormat(total*0.18)}</td>
+                <td class="total">&#x20B9;${ccyFormat(total*0.18)}</td>
               </tr>
               <tr>
                 <td colspan="4" class="grand total">GRAND TOTAL</td>
-                <td class="grand total">$${ccyFormat(total*1.18)}</td>
+                <td class="grand total">&#x20B9;${ccyFormat(total*1.18)}</td>
               </tr>
             </tbody>
           </table>

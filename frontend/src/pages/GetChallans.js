@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -42,6 +43,8 @@ const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 const invoiceTotal = invoiceTaxes + invoiceSubtotal;
 
 export default function GetChallans(props) {
+  const {t} = useTranslation();
+
   const [isChecked, setIsChecked] = useState(false);
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
@@ -186,7 +189,7 @@ export default function GetChallans(props) {
       {Object.entries(filteredData).map(([key, value]) => (
         <>
           <Typography key={key} variant="h4" component="h2" sx={{ ml: 6 }}>
-            Date: {formatDate(key)}
+            {t('Date')}: {formatDate(key)}
           </Typography>
 
           <br />
@@ -195,15 +198,15 @@ export default function GetChallans(props) {
               <TableHead>
                 <TableRow>
                   <TableCell align="center" colSpan={3}>
-                    Details
+                    {t('Details')}
                   </TableCell>
-                  <TableCell align="right">Price</TableCell>
+                  <TableCell align="right">{t('Price')}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Desc</TableCell>
-                  <TableCell align="right">Quantity.</TableCell>
-                  <TableCell align="right">Unit</TableCell>
-                  <TableCell align="right">Sum</TableCell>
+                  <TableCell>{t('Desc')}</TableCell>
+                  <TableCell align="right">{t('Quantity')}.</TableCell>
+                  <TableCell align="right">{t('Unit')}</TableCell>
+                  <TableCell align="right">{t('Sum')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -212,23 +215,23 @@ export default function GetChallans(props) {
                     <TableCell>{row.item.Name}</TableCell>
                     <TableCell align="right">{row.totalQuantity}</TableCell>
                     <TableCell align="right">{row.item.selling_price}</TableCell>
-                    <TableCell align="right">{ccyFormat(row.totalQuantity*row.item.selling_price)}</TableCell>
+                    <TableCell align="right">&#x20B9; {ccyFormat(row.totalQuantity*row.item.selling_price)}</TableCell>
                   </TableRow>
                 ))}
 
                 <TableRow>
                   <TableCell rowSpan={3} />
-                  <TableCell colSpan={2}>Subtotal</TableCell>
-                  <TableCell align="right">{ccyFormat(Number(filteredsubtotal[key]))}</TableCell>
+                  <TableCell colSpan={2}>{t('Subtotal')}</TableCell>
+                  <TableCell align="right">&#x20B9; {ccyFormat(Number(filteredsubtotal[key]))}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Tax</TableCell>
+                  <TableCell>{t('Tax')}</TableCell>
                   <TableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</TableCell>
-                  <TableCell align="right">{ccyFormat(Number(filteredsubtotal[key]*0.18))}</TableCell>
+                  <TableCell align="right">&#x20B9; {ccyFormat(Number(filteredsubtotal[key]*0.18))}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell colSpan={2}>Total</TableCell>
-                  <TableCell align="right">{ccyFormat(Number(filteredsubtotal[key]*1.18))}</TableCell>
+                  <TableCell colSpan={2}>{t('Total')}</TableCell>
+                  <TableCell align="right">&#x20B9; {ccyFormat(Number(filteredsubtotal[key]*1.18))}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

@@ -143,8 +143,8 @@ module.exports = ({inputFields, customerName}) =>{
             return `<tr>
               <td class="item-name">${input.item_name}</td>
               <td class="item-quantity">${input.quantity}</td>
-              <td class="item-rate">${ccyFormat(input.item_price)}</td>
-              <td class="item-amount">${ccyFormat(input.item_price * input.quantity)}</td>
+              <td class="item-rate">&#x20B9;${ccyFormat(input.item_price)}</td>
+              <td class="item-amount">&#x20B9;${ccyFormat(input.item_price * input.quantity)}</td>
             </tr>`;
 
             
@@ -152,7 +152,7 @@ module.exports = ({inputFields, customerName}) =>{
         </table>
         <div class="challan-total">
           <p class="challan-label">Total:</p>
-          <p class="challan-value">${ccyFormat(total)}</p>
+          <p class="challan-value">&#x20B9;${ccyFormat(total)}</p>
         </div>
         <div class="challan-notes">
           <p class="challan-label">Notes:</p>
