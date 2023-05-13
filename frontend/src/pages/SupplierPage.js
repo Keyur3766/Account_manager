@@ -191,7 +191,7 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> Account Manager </title>
+        <title> Suppliers</title>
       </Helmet>
 
       <Container>

@@ -1,18 +1,17 @@
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import Cookie from 'js-cookie';
+import authHeader from './authHeader';
 
 
 export default {
   FetchCustomer: async function () {
     try {
-
       const response = await axios.get('http://127.0.0.1:8081/api/customers/getCustomers', 
-        // {
-        //     withCredentials: true, // Send cookies with the request
-        // },
+        {
+          headers: authHeader()
+        }
       );
-
       return response;
     } catch (error) {
       console.log(error);
@@ -220,7 +219,6 @@ export default {
 
   // Generate token for sign-in functionality
   GenerateLoginToken: async function(email, password){
-
     try{
       const response = await axios.post(
         "http://127.0.0.1:8081/api/login/generateToken", {
@@ -231,7 +229,7 @@ export default {
 
       if(response.status===200){
         Cookie.set('jwtToken', JSON.stringify(response.data), { expires: 1/24 });
-        // localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data));
       }
       console.warn(response)
       return response;

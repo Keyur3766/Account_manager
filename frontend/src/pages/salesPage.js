@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Box from '@mui/material/Box';
 import { useTranslation } from 'react-i18next';
 import Tab from '@mui/material/Tab';
@@ -19,6 +20,10 @@ export default function SalesPage() {
     };
     const {t} = useTranslation();
   return (
+    <>
+    <Helmet>
+        <title> Sales </title>
+      </Helmet>
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -31,5 +36,8 @@ export default function SalesPage() {
         <TabPanel value="2"><AddSalesPage/></TabPanel>
       </TabContext>
     </Box>
+
+    </>
+
   )
 }

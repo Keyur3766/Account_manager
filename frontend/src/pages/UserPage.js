@@ -24,6 +24,8 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  Backdrop,
+  CircularProgress
 } from '@mui/material';
 // components
 import Label from '../components/label';
@@ -144,18 +146,28 @@ export default function UserPage() {
 useEffect(() => {
   const fetchData = async () => {
     // const token = await Cookie.get('jwtToken');
+    try{
+      const res = await UserServices.FetchCustomer();
+      console.warn(res);
+      if(res.data===undefined){
 
-
-    const res = await UserServices.FetchCustomer();
-
-    setData(res.data);
-    
-    const promises = res.data.map((entry) => UserServices.Get_ChallanCountById(entry.id).then((res)=>{
-      const newPendingChallan = { id: entry.id, pending: res.data };
-      setPendingChallans((prevPendingChallans) => [...prevPendingChallans, newPendingChallan]);
-
-    }));
-    await Promise.all(promises); // wait for all promises to resolve
+        if(res.response.status===401){
+          navigate('/login');
+        }
+        // throw new Error('Response data undefined');
+      }
+      setData(res.data)
+  
+      const promises = res.data.map((entry) => UserServices.Get_ChallanCountById(entry.id).then((res)=>{
+        const newPendingChallan = { id: entry.id, pending: res.data };
+        setPendingChallans((prevPendingChallans) => [...prevPendingChallans, newPendingChallan]);
+  
+      }));
+      await Promise.all(promises); // wait for all promises to resolve
+    }
+    catch(error){
+        navigate('/404');
+    }
     
   };
 
@@ -273,9 +285,14 @@ useEffect(() => {
   return (
     <>
       <Helmet>
-        <title> Account Manager </title>
+        <title> Customers </title>
       </Helmet>
-
+      {!CUSTOMERDATA || !pendingchallans? <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      > 
+  <CircularProgress color="inherit" />
+</Backdrop>: 
+<>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
@@ -443,7 +460,8 @@ useEffect(() => {
           Delete
         </MenuItem>
       </Popover>
-       
+      </>
+}
     </>
 
     

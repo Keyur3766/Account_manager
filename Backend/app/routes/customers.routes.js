@@ -9,7 +9,7 @@ var router = require("express").Router();
 
 
 //Get Customers
-router.get("/getCustomers", GetCustomers);
+router.get("/getCustomers",authenticate,GetCustomers);
 
 //Get Customer By ID
 router.get("/getCustomers/:id", GetCustomerById);

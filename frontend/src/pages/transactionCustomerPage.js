@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet-async';
 import { NavLink as RouterLink,  useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 // @mui
@@ -7,15 +8,10 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Drawer,
   Avatar,
   Divider,
   Typography,
-  RadioGroup,
-  FormControlLabel,
   Stack,
-  IconButton,
-  TextField,
   Button
 } from '@mui/material';
 import { useState, useEffect } from 'react';
@@ -109,7 +105,9 @@ export default function TransactionCustomerPage() {
   
   return (
     <>
-      
+      <Helmet>
+        <title> Transactions </title>
+      </Helmet>
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
           <Typography variant="subtitle1" sx={{ ml: 1 }}>
             {t('Customers')}

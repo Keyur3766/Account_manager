@@ -30,7 +30,7 @@ exports.loginAndGenerateToken = async(req,res) => {
             httpOnly: true
           });
           // console.log("calling and working");
-          res.status(200).json({ token });
+          res.status(200).send({ token });
         } else {
           res
             .status(400)
